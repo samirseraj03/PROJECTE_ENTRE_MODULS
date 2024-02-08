@@ -19,6 +19,9 @@ CREATE TABLE Usuarios(
  CONSTRAINT correo_valido CHECK (correo ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$'),
  created_at TIMESTAMP WITHOUT TIME ZONE ,
  updated_at  TIMESTAMP WITHOUT TIME ZONE
+ id_enquestadores  INT REFERENCES enquestadores(id_enquestadores) ON DELETE CASCADE ,
+ id_agents INT REFERENCES agents(id_agents) ON DELETE CASCADE
+
  
 
 );
@@ -27,10 +30,20 @@ CREATE TABLE enquestadores (
 
  id_enquestadores serial PRIMARY key,
  localizacion VARCHAR(255) not null,
- id_usuarios INT REFERENCES Usuarios(id) NOT NULL,
  id_empresa INT REFERENCES Empresa(id_empresa) ON DELETE CASCADE
 
 );
+
+CREATE TABLE agents (
+
+ id_agents serial PRIMARY key,
+ localizacion VARCHAR(255) not null,
+ id_empresa INT REFERENCES Empresa(id_empresa) ON DELETE CASCADE
+
+);
+
+
+
 
 
 -- Asegúrate de que la extensión pgcrypto esté habilitada

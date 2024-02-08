@@ -24,13 +24,13 @@ $(document).ready(function()
         validarFormulariLogin();
     });
 
-    form.on('submit', function (e) {
-        e.preventDefault();
-        if (validarFormulariLogin()) 
-        {
-            mostrarMissatge();
-        }
-    });
+    // form.on('submit', function (e) {
+    //     e.preventDefault();
+    //     if (validarFormulariLogin()) 
+    //     {
+    //         mostrarMissatge();
+    //     }
+    // });
 
     function validarFormulariLogin() 
     {
