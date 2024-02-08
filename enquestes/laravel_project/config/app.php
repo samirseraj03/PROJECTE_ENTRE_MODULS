@@ -2,8 +2,18 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Features;
+
 
 return [
+
+
+    'features' => [
+        Features::registration(),
+        Features::resetPasswords(),
+        Features::emailVerification(),
+    ],
+
 
     /*
     |--------------------------------------------------------------------------

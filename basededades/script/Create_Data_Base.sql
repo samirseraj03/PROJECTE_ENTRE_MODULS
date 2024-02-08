@@ -12,11 +12,14 @@ CREATE TABLE Empresa(
 
 CREATE TABLE Usuarios(
 
-  id_usuarios serial PRIMARY KEY,
+  id serial PRIMARY KEY,
   nombre varchar(255) NOT NULL,
   correo VARCHAR(255) NOT null,
   contrasenya VARCHAR(255) NOT null,
- CONSTRAINT correo_valido CHECK (correo ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
+ CONSTRAINT correo_valido CHECK (correo ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$'),
+ created_at TIMESTAMP WITHOUT TIME ZONE ,
+ updated_at  TIMESTAMP WITHOUT TIME ZONE
+ 
 
 );
 
@@ -24,7 +27,7 @@ CREATE TABLE enquestadores (
 
  id_enquestadores serial PRIMARY key,
  localizacion VARCHAR(255) not null,
- id_usuarios INT REFERENCES Usuarios(id_usuarios) NOT NULL,
+ id_usuarios INT REFERENCES Usuarios(id) NOT NULL,
  id_empresa INT REFERENCES Empresa(id_empresa) ON DELETE CASCADE
 
 );
@@ -34,9 +37,15 @@ CREATE TABLE enquestadores (
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- Crear la función hash_password
+-- CREATE OR REPLACE FUNCTION hash_password(input_text VARCHAR) RETURNS VARCHAR AS $$
+-- BEGIN
+--   RETURN ENCODE(DIGEST(input_text || gen_salt('md5'), 'md5'), 'hex');
+-- END;
+-- $$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION hash_password(input_text VARCHAR) RETURNS VARCHAR AS $$
 BEGIN
-  RETURN ENCODE(DIGEST(input_text || gen_salt('md5'), 'md5'), 'hex');
+  RETURN crypt(input_text, gen_salt('bf', 8));  -- Usa la función crypt() con el formato 'bf' para bcrypt
 END;
 $$ LANGUAGE plpgsql;
 
@@ -49,7 +58,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER hash_password_trigger
+CREATE OR REPLACE TRIGGER hash_password_trigger
 BEFORE INSERT ON Usuarios
 FOR EACH ROW
 EXECUTE FUNCTION hash_password_trigger_function();
@@ -109,7 +118,7 @@ CREATE TABLE respuestas (
   id_respuesta serial PRIMARY KEY,
   data_resposta TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL CHECK (data_resposta >= CURRENT_TIMESTAMP),
   id_pregunta int REFERENCES preguntas(id_pregunta) ON DELETE CASCADE not null,
-  id_usuarios int  REFERENCES Usuarios(id_usuarios) ON DELETE CASCADE not null
+  id_usuarios int  REFERENCES Usuarios(id) ON DELETE CASCADE not null
 
 );
 
@@ -120,7 +129,7 @@ CREATE TABLE respuestas (
 INSERT INTO Empresa ( id_empresa  ,  nombre) VALUES ( 1 , 'empresa_de_ahmed');
 
 -- Insertar ejemplo de Usuario
-insert into usuarios ( id_usuarios ,nombre , correo , contrasenya) values ( 1 , 'samir' , 'samirseraj03@gmail.com' , 'ahmed123')
+insert into usuarios ( id ,nombre , correo , contrasenya) values ( 1 , 'samir' , 'samirseraj03@gmail.com' , 'ahmed123')
 
 -- Insertar ejemplo de Enquestador asociado a un Usuario y una Empresa
 INSERT INTO enquestadores (localizacion, id_usuarios, id_empresa) VALUES ('girona', 1, 1);
