@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\HelloController;
 
-
+use App\Http\Controllers\InformesController;
 
 
 /*
@@ -33,7 +34,9 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
 
 });
 
+Route::get('/informes' , [InformesController::class , 'getInformes']);
 
+Route::get('/hello', [HelloController::class, 'index']);
 
 
 

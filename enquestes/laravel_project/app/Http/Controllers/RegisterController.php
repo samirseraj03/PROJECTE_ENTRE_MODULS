@@ -17,13 +17,15 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
- 
+        
         $request->validate([
             'nombre' => 'required|string|max:255',
             'correo' => 'required|string|email|max:255',
             'contrasenya' => 'required|string|min:2',
         ]);
         
+
+
         User::create([
             'nombre' => $request->nombre,
             'correo' => $request->correo,

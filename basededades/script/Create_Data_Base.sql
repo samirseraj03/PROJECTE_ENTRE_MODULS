@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS enquestas ;
 USE enquestas;
 
+CREATE LANGUAGE plpgsql;
 
 
 CREATE TABLE Empresa(
@@ -48,13 +49,6 @@ CREATE TABLE agents (
 
 -- Asegúrate de que la extensión pgcrypto esté habilitada
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
--- Crear la función hash_password
--- CREATE OR REPLACE FUNCTION hash_password(input_text VARCHAR) RETURNS VARCHAR AS $$
--- BEGIN
---   RETURN ENCODE(DIGEST(input_text || gen_salt('md5'), 'md5'), 'hex');
--- END;
--- $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION hash_password(input_text VARCHAR) RETURNS VARCHAR AS $$
 BEGIN
@@ -134,6 +128,47 @@ CREATE TABLE respuestas (
   id_usuarios int  REFERENCES Usuarios(id) ON DELETE CASCADE not null
 
 );
+
+
+CREATE TABLE informe_encuestas (
+    id serial PRIMARY KEY,
+    id_encuesta INT,
+    id_pregunta INT,
+    tipo_pregunta VARCHAR(255),
+    cantidad_respuestas INT
+);
+
+ CREATE EXTENSION pgagent
+
+
+
+CREATE OR REPLACE FUNCTION generar_informe() RETURNS VOID AS $$
+DECLARE
+    id_encuesta_temp INT;
+    id_pregunta_temp INT;
+    tipo_pregunta_temp VARCHAR(255);
+    cantidad_respuestas INT;
+BEGIN
+    -- Limpiar la tabla de informes antes de generar un nuevo informe
+    TRUNCATE TABLE informe_encuestas;
+    
+    -- recorrer 
+    FOR id_encuesta_temp IN SELECT id_encuesta FROM encuesta LOOP
+
+        FOR id_pregunta_temp IN SELECT id_pregunta FROM preguntes_enquestes WHERE id_encuesta = id_encuesta_temp LOOP
+   
+            SELECT tipus INTO tipo_pregunta_temp FROM preguntas JOIN tipus_pregunta ON preguntas.id_tipus = tipus_pregunta.id_tipus WHERE preguntas.id_pregunta = id_pregunta_temp;
+            
+            IF tipo_pregunta_temp IN ('slider', 'imagen', 'text') THEN
+                -- Contar la cantidad de respuestas para cada tipo de respuesta
+                SELECT COUNT(*) INTO cantidad_respuestas FROM respuestas WHERE id_pregunta = id_pregunta_temp;
+                
+                INSERT INTO informe_encuestas (id_encuesta, id_pregunta, tipo_pregunta, cantidad_respuestas) VALUES (id_encuesta_temp, id_pregunta_temp, tipo_pregunta_temp, cantidad_respuestas);
+            END IF;
+        END LOOP;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
 
 
 

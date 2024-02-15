@@ -1,6 +1,9 @@
 <?php
 
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelloController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -11,4 +14,8 @@
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
+
+Route::get('/hello', [HelloController::class, 'index']);
 

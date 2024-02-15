@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  aidboxdb:
+    image: healthsamurai/aidboxdb:13.12
+    volumes:
+      - ./pgdata:/data/pg:rw  # Map current directory's pgdata folder to container's data directory
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass   # Replace with your actual password
+      - POSTGRES_DB=aidbox
+      - PGDATA=/data/pg
+    networks:
+    ipv4_address: 192.168.170.33 
+    hostname: app.local
+    ports:
+      - "5432:5432"  # Expose PostgreSQL port
+    restart: unless-stopped  # Restart automatically unless manually stopped
+
+# Additional services or configurations as needed
+# ...w
