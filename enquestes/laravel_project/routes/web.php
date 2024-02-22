@@ -31,7 +31,9 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
 
       // Logout route with POST method for CSRF protection
    //   Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-      Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
+
 
     Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 

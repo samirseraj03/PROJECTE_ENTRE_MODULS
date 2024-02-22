@@ -48,12 +48,12 @@ class LoginController extends Controller
         if ($user && password_verify($credentials['contrasenya'], $user->contrasenya)) {
             // Autenticación exitosa
             Auth::login($user); // Inicia sesión en el sistema
-            return redirect()->route('home');
+            return redirect('/home')->with('success', '¡Registro exitoso!');
             // return redirect()->intended('/dashboard'); // Redirige a la página deseada después del inicio de sesión
         } else {
             // Autenticación fallida
             // return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);
-            return 'incorrecto';
+            return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);
         }
     }
 
