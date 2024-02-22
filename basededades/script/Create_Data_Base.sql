@@ -11,21 +11,6 @@ CREATE TABLE Empresa(
 
 );
 
-CREATE TABLE Usuarios(
-
-  id serial PRIMARY KEY,
-  nombre varchar(255) NOT NULL,
-  correo VARCHAR(255) NOT null,
-  contrasenya VARCHAR(255) NOT null,
- CONSTRAINT correo_valido CHECK (correo ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$'),
- created_at TIMESTAMP WITHOUT TIME ZONE ,
- updated_at  TIMESTAMP WITHOUT TIME ZONE
- id_enquestadores  INT REFERENCES enquestadores(id_enquestadores) ON DELETE CASCADE ,
- id_agents INT REFERENCES agents(id_agents) ON DELETE CASCADE
-
- 
-
-);
 
 CREATE TABLE enquestadores (
 
@@ -43,8 +28,21 @@ CREATE TABLE agents (
 
 );
 
+CREATE TABLE Usuarios(
 
+  id serial PRIMARY KEY,
+  nombre varchar(255) NOT NULL,
+  correo VARCHAR(255) NOT null,
+  contrasenya VARCHAR(255) NOT null,
+ CONSTRAINT correo_valido CHECK (correo ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$'),
+ created_at TIMESTAMP WITHOUT TIME ZONE ,
+ updated_at  TIMESTAMP WITHOUT TIME ZONE , 
+ id_enquestadores  INT REFERENCES enquestadores(id_enquestadores) ON DELETE CASCADE ,
+ id_agents INT REFERENCES agents(id_agents) ON DELETE CASCADE
 
+ 
+
+);
 
 
 -- Asegúrate de que la extensión pgcrypto esté habilitada
@@ -138,37 +136,37 @@ CREATE TABLE informe_encuestas (
     cantidad_respuestas INT
 );
 
- CREATE EXTENSION pgagent
+--  CREATE EXTENSION pgagent;
 
 
 
-CREATE OR REPLACE FUNCTION generar_informe() RETURNS VOID AS $$
-DECLARE
-    id_encuesta_temp INT;
-    id_pregunta_temp INT;
-    tipo_pregunta_temp VARCHAR(255);
-    cantidad_respuestas INT;
-BEGIN
-    -- Limpiar la tabla de informes antes de generar un nuevo informe
-    TRUNCATE TABLE informe_encuestas;
+-- CREATE OR REPLACE FUNCTION generar_informe() RETURNS VOID AS $$
+-- DECLARE
+--     id_encuesta_temp INT;
+--     id_pregunta_temp INT;
+--     tipo_pregunta_temp VARCHAR(255);
+--     cantidad_respuestas INT;
+-- BEGIN
+--     -- Limpiar la tabla de informes antes de generar un nuevo informe
+--     TRUNCATE TABLE informe_encuestas;
     
-    -- recorrer 
-    FOR id_encuesta_temp IN SELECT id_encuesta FROM encuesta LOOP
+--     -- recorrer 
+--     FOR id_encuesta_temp IN SELECT id_encuesta FROM encuesta LOOP
 
-        FOR id_pregunta_temp IN SELECT id_pregunta FROM preguntes_enquestes WHERE id_encuesta = id_encuesta_temp LOOP
+--         FOR id_pregunta_temp IN SELECT id_pregunta FROM preguntes_enquestes WHERE id_encuesta = id_encuesta_temp LOOP
    
-            SELECT tipus INTO tipo_pregunta_temp FROM preguntas JOIN tipus_pregunta ON preguntas.id_tipus = tipus_pregunta.id_tipus WHERE preguntas.id_pregunta = id_pregunta_temp;
+--             SELECT tipus INTO tipo_pregunta_temp FROM preguntas JOIN tipus_pregunta ON preguntas.id_tipus = tipus_pregunta.id_tipus WHERE preguntas.id_pregunta = id_pregunta_temp;
             
-            IF tipo_pregunta_temp IN ('slider', 'imagen', 'text') THEN
-                -- Contar la cantidad de respuestas para cada tipo de respuesta
-                SELECT COUNT(*) INTO cantidad_respuestas FROM respuestas WHERE id_pregunta = id_pregunta_temp;
+--             IF tipo_pregunta_temp IN ('slider', 'imagen', 'text') THEN
+--                 -- Contar la cantidad de respuestas para cada tipo de respuesta
+--                 SELECT COUNT(*) INTO cantidad_respuestas FROM respuestas WHERE id_pregunta = id_pregunta_temp;
                 
-                INSERT INTO informe_encuestas (id_encuesta, id_pregunta, tipo_pregunta, cantidad_respuestas) VALUES (id_encuesta_temp, id_pregunta_temp, tipo_pregunta_temp, cantidad_respuestas);
-            END IF;
-        END LOOP;
-    END LOOP;
-END;
-$$ LANGUAGE plpgsql;
+--                 INSERT INTO informe_encuestas (id_encuesta, id_pregunta, tipo_pregunta, cantidad_respuestas) VALUES (id_encuesta_temp, id_pregunta_temp, tipo_pregunta_temp, cantidad_respuestas);
+--             END IF;
+--         END LOOP;
+--     END LOOP;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
 
 
@@ -176,11 +174,12 @@ $$ LANGUAGE plpgsql;
 -- Insertar ejemplo de Empresa
 INSERT INTO Empresa ( id_empresa  ,  nombre) VALUES ( 1 , 'empresa_de_ahmed');
 
--- Insertar ejemplo de Usuario
-insert into usuarios ( id ,nombre , correo , contrasenya) values ( 1 , 'samir' , 'samirseraj03@gmail.com' , 'ahmed123')
-
 -- Insertar ejemplo de Enquestador asociado a un Usuario y una Empresa
 INSERT INTO enquestadores (localizacion, id_usuarios, id_empresa) VALUES ('girona', 1, 1);
+
+
+-- Insertar ejemplo de Usuario
+insert into usuarios ( id ,nombre , correo , contrasenya , 1 ,2) values ( 1 , 'samir' , 'samirseraj03@gmail.com' , 'ahmed123');
 
 -- Insertar ejemplo de Encuesta asociada a una Empresa
 INSERT INTO encuesta (id_encuesta , Descripcion, data_Creacion, data_finalizacion, id_empresa) VALUES ( 1 , 'Encuesta de satisfacción', '2024-01-01', '2024-02-01', 1);

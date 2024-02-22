@@ -1,21 +1,39 @@
-version: "3.8"
+version: '3'
 
 services:
-  aidboxdb:
-    image: healthsamurai/aidboxdb:13.12
-    volumes:
-      - ./pgdata:/data/pg:rw  # Map current directory's pgdata folder to container's data directory
+  postgres:
+    image: postgres
+    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=pass   # Replace with your actual password
-      - POSTGRES_DB=aidbox
-      - PGDATA=/data/pg
-    networks:
-    ipv4_address: 192.168.170.33 
-    hostname: app.local
+      POSTGRES_DB: enquestas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"  # Expose PostgreSQL port
-    restart: unless-stopped  # Restart automatically unless manually stopped
+      - "5432:5432"
+    networks:
+      - db_network
+  
+  apache_frontend:
+    image: httpd
+    ports:
+      - "8080:80"
+    depends_on:
+      - apache_backend
+    networks:
+      - enq-network
 
-# Additional services or configurations as needed
-# ...w
+  apache_backend:
+    image: php:apache
+    ports:
+      - "8081:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - postgres
+networks:
+  enq-network:
+    driver: bridge
+  db_network:
+    driver: bridge

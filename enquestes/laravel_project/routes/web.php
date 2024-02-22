@@ -5,7 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HelloController;
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformesController;
 
 
@@ -38,8 +38,9 @@ Route::get('/informes' , [InformesController::class , 'getInformes']);
 
 Route::get('/hello', [HelloController::class, 'index']);
 
+Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
 
-
+Route::get('/get-encuestas-por-empresa/{id_empresa}', [HomeController::class, 'getEncuestasPorEmpresa']);
 
 
 // Otras rutas
