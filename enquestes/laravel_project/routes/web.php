@@ -48,6 +48,12 @@ Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
 Route::get('/get-encuestas-por-empresa/{id_empresa}', [HomeController::class, 'getEncuestasPorEmpresa']);
 
 
+//Rutas Survey
+Route::get('/survey', function () {
+    return view('survey');
+});
+
+
 // Otras rutas
 Route::get('/', function () {
     return view('welcome');
