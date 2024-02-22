@@ -9,25 +9,20 @@ use App\Models\encuesta; // Asegúrate de importar el modelo correcto
 
 class HomeController extends Controller
 {
+    public function mostrarEmpresa()
+    {
+        $empresas = empresa::all();
+        return view('home', compact('empresas'));
+    }
 
-public function mostrarEmpresa()
-{
-    $empresas = empresa::all();
-    return view('home', compact('empresas'));
-}
-
-public function getEncuestasPorEmpresa(Request $request)
-{
-    // Obtén el ID de la empresa seleccionada desde la solicitud
-    $id_empresa = $request->route('id_empresa');
-    $id_empresa = intval($id_empresa);
-    // Busca las encuestas asociadas con la empresa seleccionada
-    $encuestas = Encuesta::where('id_empresa', $id_empresa)->get();
-    $encuestas = $encuestas->toArray();
-    return response()->json($encuestas);
-}
-
-
-
-
+    public function getEncuestasPorEmpresa(Request $request)
+    {
+        // Obtén el ID de la empresa seleccionada desde la solicitud
+        $id_empresa = $request->route('id_empresa');
+        $id_empresa = intval($id_empresa);
+        // Busca las encuestas asociadas con la empresa seleccionada
+        $encuestas = Encuesta::where('id_empresa', $id_empresa)->get();
+        $encuestas = $encuestas->toArray();
+        return response()->json($encuestas);
+    }
 }
