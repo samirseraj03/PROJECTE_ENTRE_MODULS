@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformesController;
+use App\Http\Controllers\EnquestaController;
 
 
 /*
@@ -31,6 +32,8 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
       // Logout route with POST method for CSRF protection
    //   Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
       Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 
 });
 
