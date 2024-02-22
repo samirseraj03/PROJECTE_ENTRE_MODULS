@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformesController;
+use App\Http\Controllers\EnquestaController;
 
 
 /*
@@ -33,6 +34,8 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
+
+    Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 
 });
 
