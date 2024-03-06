@@ -39,6 +39,8 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
 
 });
 
+
+
 Route::get('/informes' , [InformesController::class , 'getInformes']);
 
 Route::get('/hello', [HelloController::class, 'index']);
@@ -52,6 +54,12 @@ Route::get('/get-encuestas-por-empresa/{id_empresa}', [HomeController::class, 'g
 Route::get('/survey', function () {
     return view('survey');
 });
+
+//Rutas discarch
+Route::get('/new_company', function () {
+    return view('discharge.new-company');
+});
+
 
 
 // Otras rutas
