@@ -8,6 +8,10 @@ use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\EnquestaController;
+use App\Http\Controllers\DishchargeController;
+
+
+
 
 
 /*
@@ -30,7 +34,7 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::post('/login', [LoginController::class, 'login']);
 
       // Logout route with POST method for CSRF protection
-   //   Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+     //   Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
@@ -45,7 +49,7 @@ Route::get('/informes' , [InformesController::class , 'getInformes']);
 
 Route::get('/hello', [HelloController::class, 'index']);
 
-Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
+Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
 Route::get('/get-encuestas-por-empresa/{id_empresa}', [HomeController::class, 'getEncuestasPorEmpresa']);
 
@@ -56,9 +60,13 @@ Route::get('/survey', function () {
 });
 
 //Rutas discarch
-Route::get('/new_company', function () {
+Route::get('/new-company', function () {
     return view('discharge.new-company');
-});
+})->name('new_company');
+
+Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeCompany'])->name('submit-localitzacio');
+
+
 
 
 
