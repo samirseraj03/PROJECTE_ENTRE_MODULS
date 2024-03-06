@@ -14,7 +14,8 @@ create table
     id bigint primary key generated always as identity,
     name text,
     email text,
-    is_driver boolean,
+    password : text
+    user_type : text,
     driving_type text,
     location_id bigint references locations (id),
     address text,
