@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 
 use App\Models\empresa;
 use App\Models\Encuesta;
+use App\Models\TipusPregunta;
 use DateTime;
 use Illuminate\View\View;
 
@@ -42,16 +43,11 @@ class DishchargeController extends Controller
     {
 
         $empresas = empresa::all();
-        return view('discharge.new-ask', compact('empresas'));
+        $tipus = TipusPregunta::all();
+
+
+        return view('discharge.new-ask', compact('empresas' ,'tipus'));
     }
-
-    public function FunctionName() : view {
-
-        
-
-        return view('discharge.new-ask', compact('empresas'));  
-    }
-
 
 
     public function DischargeSurvey(Request $request): RedirectResponse

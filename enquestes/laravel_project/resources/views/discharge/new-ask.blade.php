@@ -6,29 +6,44 @@
     <form action="{{ route('new_ask') }}" method="POST">
         @csrf
 
-        <!-- seleccionar la empresa o la localitazio -->
-        <div class="card text-center">
-            <div class="card-body">
-                <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
-                <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                    <option value="" selected>Seleccionar empresa</option>
-                    @foreach ($empresas as $empresa)
-                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
+
+        <div class="row">
+
+            <div class="col">
 
 
-        <!-- selecionar la enquesta -->
-        <div class="card text-center mt-5">
-            <div class="card-body">
-                <h5 class="card-title">Seleccionar la encuesta</h5>
-                <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres agregar para agregar la pregunta</p>
-                <select id="selectEncuesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                    <option value="" selected>Seleccionar encuesta</option>
-                </select>
+
+                <!-- seleccionar la empresa o la localitazio -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
+                        <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                            <option value="" selected>Seleccionar empresa</option>
+                            @foreach ($empresas as $empresa)
+                            <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
             </div>
+
+
+            <div class="col">
+
+
+                <!-- selecionar la enquesta -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Seleccionar la encuesta</h5>
+                        <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres agregar para agregar la pregunta</p>
+                        <select id="selectEncuesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                            <option value="" selected>Seleccionar encuesta</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
@@ -42,32 +57,28 @@
                 </div>
 
                 <label for="TipusPregutnta" class="form-label">Tipus de Pregunta</label>
-                <div class="input-group input-group-lg mb-3">
-                    <input type="date" class="form-control" name="TipusPregutnta" id="TipusPregutnta" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                </div>
-
                 <select id="selectEncuesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
                     <option value="" selected>Seleccionar opcio</option>
-                    @foreach ($tipus_pregunta as $tipus)
+                    @foreach ($tipus as $tipus_pregunta)
                     <option value="{{ $tipus_pregunta->id_tipus }}">{{ $tipus_pregunta->tipus }}</option>
                     @endforeach
                 </select>
 
 
-     
+
 
 
 
     </form>
 
 
-               <!-- Botón para abrir el modal -->
-               <!-- <button type="button" class="btn btn-success d-flex align-items-start w-25 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <!-- Botón para abrir el modal -->
+    <!-- <button type="button" class="btn btn-success d-flex align-items-start w-25 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <span class="text-center">Dar De alta</span>
                 </button> -->
 
-                <!-- Modal -->
-                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
