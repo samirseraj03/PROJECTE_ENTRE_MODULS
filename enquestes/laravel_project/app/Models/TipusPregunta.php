@@ -14,7 +14,6 @@ class TipusPregunta extends Model
     protected $fillable = [
         'id_tipus', // id_tipus
         'tipus', // tipus
-   
     ];
 
     public $timestamps = false;
