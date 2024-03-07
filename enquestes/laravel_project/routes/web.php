@@ -59,12 +59,16 @@ Route::get('/survey', function () {
     return view('survey');
 });
 
+
 //Rutas discarch
 Route::get('/new-company', function () {
     return view('discharge.new-company');
 })->name('new_company');
 
+Route::get('/new-survey', [DishchargeController::class, 'LoadDischargeSurvey'])->name('new_survey');
 Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeCompany'])->name('submit-localitzacio');
+
+Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->name('new_survey');
 
 
 
