@@ -39,11 +39,9 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
 
-    Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
+   
 
 });
-
-
 
 Route::get('/informes' , [InformesController::class , 'getInformes']);
 
@@ -70,7 +68,11 @@ Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeComp
 
 Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->name('new_survey');
 
+//Vista predefinaida vacia encuesta
+Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 
+//Vista encuesta especificada
+Route::get('/enquesta', [EnquestaController::class,'postEnquesta'])->name('enquesta');
 
 
 
