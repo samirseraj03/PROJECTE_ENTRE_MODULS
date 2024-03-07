@@ -71,6 +71,9 @@ Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeComp
 Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->name('new_survey');
 
 
+Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name('new_ask');
+
+
 
 
 

@@ -28,18 +28,34 @@ class DishchargeController extends Controller
         $Company->save();
 
         return redirect()->route('home')->with('success', 'Empresa creada correctamente');
-
     }
 
-    public function LoadDischargeSurvey(Request $request) : View {
+    public function LoadDischargeSurvey(Request $request): View
+    {
 
         $empresas = empresa::all();
         return view('discharge.new-survey', compact('empresas'));
-
     }
 
-    
-    public function DischargeSurvey(Request $request) : RedirectResponse {
+
+    public function LoadDischargeAsk(Request $request): View
+    {
+
+        $empresas = empresa::all();
+        return view('discharge.new-ask', compact('empresas'));
+    }
+
+    public function FunctionName() : view {
+
+        
+
+        return view('discharge.new-ask', compact('empresas'));  
+    }
+
+
+
+    public function DischargeSurvey(Request $request): RedirectResponse
+    {
 
 
         $idEmpresa = $request->input('id_empresa');
@@ -47,18 +63,19 @@ class DishchargeController extends Controller
         $fechaFinalizacion = new DateTime($request->input('fechaFinalizacion'));
         $fechaCreacion = new DateTime();
 
-          // Your logic based on parameters
-          $Encuesta = new Encuesta();
-          $Encuesta->descripcion = $NombreEncuesta;
-          $Encuesta->data_creacion = $fechaCreacion;
-          $Encuesta->data_finalizacion = $fechaFinalizacion;
-          $Encuesta->id_empresa = $idEmpresa;
-          
-          $Encuesta->save();
-  
-          return redirect()->route('home')->with('success', 'encuesta creada correctamente');
+        // Your logic based on parameters
+        $Encuesta = new Encuesta();
+        $Encuesta->descripcion = $NombreEncuesta;
+        $Encuesta->data_creacion = $fechaCreacion;
+        $Encuesta->data_finalizacion = $fechaFinalizacion;
+        $Encuesta->id_empresa = $idEmpresa;
 
+        $Encuesta->save();
+
+        return redirect()->route('home')->with('success', 'encuesta creada correctamente');
     }
+
+
 
 
 
