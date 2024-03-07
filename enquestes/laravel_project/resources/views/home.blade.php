@@ -3,27 +3,29 @@
 @section('content')
 
 <div class="container mt-5">
-    <div class="card text-center">
-        <div class="card-body">
-            <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
-            <select id="selectEmpresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                <option value="" selected>Seleccionar empresa</option>
-                @foreach ($empresas as $empresa)
-                <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
-                @endforeach
-            </select>
+    <form action="{{ route('enquesta') }}" method="GET">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
+                <select id="selectEmpresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                    <option value="" selected>Seleccionar empresa</option>
+                    @foreach ($empresas as $empresa)
+                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="card text-center mt-5">
-        <div class="card-body">
-            <h5 class="card-title">Seleccionar la encuesta</h5>
-            <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres responder</p>
-            <select id="selectEncuesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                <option value="" selected>Seleccionar encuesta</option>
-            </select>
-            <button type="submit" class="btn btn-primary">Responder la pregunta</button>
+        <div class="card text-center mt-5">
+            <div class="card-body">
+                <h5 class="card-title">Seleccionar la encuesta</h5>
+                <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres responder</p>
+                <select id="selectEnquesta" name="selectEnquesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                    <option value="" selected>Seleccionar encuesta</option>
+                </select>
+                <button id="getSurvey" type="submit" class="btn btn-primary">Responder la pregunta</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -49,11 +51,11 @@
             },
             success: function(response) {
                 // Limpia el select de encuestas
-                $('#selectEncuesta').empty();
+                $('#selectEnquesta').empty();
                 console.log(response)
                 // Agrega las opciones de encuestas devueltas por el servidor al select de encuestas
                 $.each(response, function(index, encuesta) {
-                    $('#selectEncuesta').append($('<option>', {
+                    $('#selectEnquesta').append($('<option>', {
                         value: encuesta.id,
                         text: encuesta.descripcion
                     }));
