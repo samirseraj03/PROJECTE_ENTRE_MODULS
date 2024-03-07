@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Encuesta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -24,12 +25,13 @@ class EnquestaController extends Controller
     private function processData($param1)
     {
         // Implement your logic here based on parameters
-        
+
         // For example, you can query a database, perform calculations, etc.
+        $itemID = Encuesta::where('descripcion', $param1)->get();
 
         // Return a sample result for demonstration
         return [
-            'enquesta' => $param1,
+            'enquesta' => $itemID,
             'result' => 'Bondia',
         ];
     }
