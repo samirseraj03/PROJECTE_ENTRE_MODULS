@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Encuesta;
+use App\Models\opciones;
+use App\Models\preguntas;
+use App\Models\TipusPregunta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +19,7 @@ class EnquestaController extends Controller
         $param2 = $request->input('param2');
 
         // Your logic based on parameters
-        $result = $this->processData($param1, $param2);
+        $result = $this->processData($param1);
 
         // Return the view with processed data
         return view('survey2', ['data' => $result]);
@@ -24,15 +27,72 @@ class EnquestaController extends Controller
 
     private function processData($param1)
     {
-        // Implement your logic here based on parameters
+        // Saved Json
+        $formattedData2 = [];
 
         // For example, you can query a database, perform calculations, etc.
-        $itemID = Encuesta::where('descripcion', $param1)->get();
+        $items = encuesta::where('descripcion', $param1)->get();
+        $itemsFormatats = $items->toArray();
+        $idEncuesta = $itemsFormatats[0]['id_encuesta'];
+
+        $preguntes = preguntas::where('id_encuesta', $idEncuesta)->get();
+        $preguntesFormatades = $preguntes->toArray();
+
+        foreach ($preguntesFormatades as &$pregunta) 
+        {
+            $formattedPregunta = [];
+
+            // Save Questions parameters
+            $enunciat = $pregunta['enunciado'];
+            $id_pregunta = $pregunta['id_pregunta'];
+            $id_tipus = $pregunta['id_tipus'];
+
+            // Get Tipus Name
+            $tipus = TipusPregunta::where('id_tipus', $id_tipus)->get();
+            $tipusFormatat = $tipus->toArray();
+            $nom_tipus = $tipusFormatat[0]['tipus'];
+
+            // Get Question options
+            $formatedOpcions = [];
+
+            $opcions = opciones::where('id_pregunta', $id_pregunta)->get();
+            $opcionsFormatades = $opcions-> toArray();
+
+            foreach($opcionsFormatades as &$opcio)
+            {
+                $formatedOpcions[] = $opcio['descripcion'];
+            }
+
+            $formattedPregunta += 
+            [
+                "id" => "$id_pregunta",
+                "tipus" => "$nom_tipus" ,
+                "pregunta" => "$enunciat",
+            ];
+
+            if(count($formatedOpcions) <= 1)
+            {
+                $formattedPregunta +=
+                [
+                    "placeholder" => $formatedOpcions[0],
+                ];
+            }
+            else
+            {
+                $formattedPregunta +=
+                [
+                    "opcions" => $formatedOpcions,
+                ];
+            }
+            $formattedData2[] = $formattedPregunta;
+        }
+
+        $formattedData = $formattedData2;
 
         // Return a sample result for demonstration
         return [
-            'enquesta' => $itemID,
-            'result' => 'Bondia',
+            'enquesta' => $formattedData,
+            'result' => 'Succes',
         ];
     }
 
@@ -44,6 +104,6 @@ class EnquestaController extends Controller
         $result = $this->processData($selectParam);
 
         // Return the view with processed data
-        return view('survey2', ['data' => $result]);
+        return view('survey', ['data' => $result]);
     }
 }

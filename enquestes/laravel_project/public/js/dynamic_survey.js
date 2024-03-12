@@ -1,11 +1,13 @@
-fetch('/json/preg2.json')
-    .then(response => response.json())
-    .then(jsonData => {
+// fetch('/json/preg2.json')
+//     .then(response => response.json())
+//     .then(jsonData => {
         // Get the form container
         const formContainer = document.getElementById('dynamicForm');
 
+        // Use jsonData in your JavaScript logic
         // Generate the form elements
-        jsonData.preguntes.forEach(pregunta => {
+        //jsonData.preguntes.forEach(pregunta => {
+        jsonData2.enquesta.forEach(pregunta => {
             const element = createFormElement(pregunta);
             formContainer.appendChild(element);
         });
@@ -14,8 +16,8 @@ fetch('/json/preg2.json')
         submit.type =  'submit';
         submit.innerText = "Enviar";
         formContainer.appendChild(submit);
-    })
-    .catch(error => console.error('Error fetching JSON:', error));
+    // })
+    // .catch(error => console.error('Error fetching JSON:', error));
 
 function createFormElement(pregunta) 
 {
@@ -29,6 +31,7 @@ function createFormElement(pregunta)
         case 'text':
         case 'date':
         case 'email':
+        case 'number':
             const input = document.createElement('input');
             input.type = pregunta.tipus;
             input.id = pregunta.id;
