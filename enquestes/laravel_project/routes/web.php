@@ -38,9 +38,6 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
-
-   
-
 });
 
 Route::get('/informes' , [InformesController::class , 'getInformes']);
@@ -74,7 +71,12 @@ Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name(
 //Vista predefinaida vacia encuesta
 Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 
+// para obtener los primperos datos de new-ask
 Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name('new_ask');
+
+//para insertar la pregutna a la base de datos
+Route::post('/new-ask', [DishchargeController::class, 'insert_new_ask'])->name('new_ask');
+
 
 //Vista predefinaida vacia encuesta
 Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
@@ -82,6 +84,9 @@ Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
 //Vista encuesta especificada
 Route::get('/enquesta', [EnquestaController::class,'postEnquesta'])->name('enquesta');
 
+
+//vista pregunta para obtener opciones new-ask
+Route::get('/getopciones', [DishchargeController::class,'getopciones'])->name('getopciones');
 
 
 // Otras rutas

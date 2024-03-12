@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgres:
-    image: postgres
+    build: ./dockerfile.postgres
     restart: always
     environment:
       POSTGRES_DB: enquestas
@@ -10,6 +10,10 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./enquestes:/docker-entrypoint-initdb.d/enquestes
+  --crear un altre
+
+      - ./init
     ports:
       - "5432:5432"
     networks:

@@ -18,7 +18,6 @@ use App\Http\Controllers\HomeController;
 */
 
 
-
 Route::get('/hello', [HelloController::class, 'index']);
 
 Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
