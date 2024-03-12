@@ -4,12 +4,9 @@
         // Get the form container
         const formContainer = document.getElementById('dynamicForm');
 
-        console.log(jsonData2);
-
         // Use jsonData in your JavaScript logic
         // Generate the form elements
         //jsonData.preguntes.forEach(pregunta => {
-        debugger;
         jsonData2.enquesta.forEach(pregunta => {
             const element = createFormElement(pregunta);
             formContainer.appendChild(element);
@@ -34,6 +31,7 @@ function createFormElement(pregunta)
         case 'text':
         case 'date':
         case 'email':
+        case 'number':
             const input = document.createElement('input');
             input.type = pregunta.tipus;
             input.id = pregunta.id;
