@@ -10,8 +10,8 @@
                 <!-- seleccionar la empresa o la localitazio -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
-                        <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                        <h5 class="card-title pb-3 mb-5">Seleccionar la empresa con la que estás trabajando</h5>
+                        <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-4 mt-1" aria-label="Large select example">
                             <option value="" selected>Seleccionar empresa</option>
                             @foreach ($empresas as $empresa)
                             <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>

@@ -14,6 +14,8 @@ use Illuminate\View\View;
 
 use App\Models\opciones;
 use App\Models\preguntas;
+use Attribute;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class DishchargeController extends Controller
 {
@@ -84,55 +86,48 @@ class DishchargeController extends Controller
    
 
 
-
+        // RECOGER LOS DATOS DEL FORMAULARIO DE LAS ALTAS 
         $id_encuesta = $request->input('selectEncuesta');
         $nombre_pregunta = $request->input('nombrePregunta');
         $Tipus_pregunta = $request->input('selectTipusPregunta');
 
-        if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5" ){
+        // hacemos el insert para la tabla de pregunta
+        $Pregunta = new preguntas();
+        $Pregunta->id_encuesta = $id_encuesta;
+        $Pregunta->enunciado = $nombre_pregunta;
+        $Pregunta->id_tipus = $Tipus_pregunta;
+        $Pregunta->save();
 
+        $id_pregunta_nueva = $Pregunta->id_pregunta;
+
+
+ 
+        if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5" ){
+            // recogemos los datos para tipus de preguntas 
             $opciones_selecciondas = $request->input('opcionsSeleccionades');
             $arrayTmp =  explode(',', $opciones_selecciondas);
-
-            dd($arrayTmp);
+            $arrayTmp = array_map('intval', $arrayTmp);
 
             $opciones = opciones::all();
 
 
 
-            for ( $i = 0 ; $i < count($opciones) ; $i++){
+            for ( $i = 0 ; $i < count($opciones) - 1 ; $i++){
+                
+                $id_opcion_buscar = $opciones[$i]->id_opcion;
 
-                if ($i < 10){
 
-                    dd($opciones[$i]);
+                if (in_array($id_opcion_buscar, $arrayTmp , true) == true) {
+
+                    // insertamos la informacion que falta para las opciones y assiganrlas a la pregunta
+                    $opciones_insert = new opciones();
+                    $pregunta = $opciones->where('id_opcion', $id_opcion_buscar)->pluck('descripcion');
+                    $opciones_insert->id_pregunta = $id_pregunta_nueva ;
+                    $opciones_insert->descripcion = $pregunta->first() ;
+                    $opciones_insert->save();
+                  }
                 };
-
-
-
-
-            };
-
-
-         
-            dd($opciones[$i]);
-
-
-
-
-         //   dd($id_encuesta ,  $nombre_pregunta , $Tipus_pregunta , $opciones_selecciondas );
         }
-        else{
-            dd($id_encuesta ,  $nombre_pregunta , $Tipus_pregunta );
-        }
-
-
-        // Your logic based on parameters
-        $Encuesta = new preguntas();
-        $Encuesta->descripcion = $nombre_pregunta;
-
-
-        $Encuesta->save();
-
         return redirect()->route('home')->with('success', 'pregunta creada correctamente');
     }
 

@@ -56,7 +56,7 @@
                 // Agrega las opciones de encuestas devueltas por el servidor al select de encuestas
                 $.each(response, function(index, encuesta) {
                     $('#selectEnquesta').append($('<option>', {
-                        value: encuesta.id,
+                        value: encuesta.id_encuesta,
                         text: encuesta.descripcion
                     }));
                 });
