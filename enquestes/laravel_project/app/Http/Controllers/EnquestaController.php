@@ -9,6 +9,7 @@ use App\Models\TipusPregunta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Mockery\Undefined;
 
 class EnquestaController extends Controller
 {
@@ -16,7 +17,6 @@ class EnquestaController extends Controller
     {
         // Retrieve parameters from the request
         $param1 = $request->input('param1');
-        $param2 = $request->input('param2');
 
         // Your logic based on parameters
         $result = $this->processData($param1);
@@ -31,9 +31,9 @@ class EnquestaController extends Controller
         $formattedData2 = [];
 
         // For example, you can query a database, perform calculations, etc.
-        $items = encuesta::where('descripcion', $param1)->get();
-        $itemsFormatats = $items->toArray();
-        $idEncuesta = $itemsFormatats[0]['id_encuesta'];
+        //$items = encuesta::where('id_encuesta', $param1)->get();
+        //$itemsFormatats = $items->toArray();
+        $idEncuesta = $param1;//$itemsFormatats[0]['id_encuesta'];
 
         $preguntes = preguntas::where('id_encuesta', $idEncuesta)->get();
         $preguntesFormatades = $preguntes->toArray();
@@ -72,10 +72,21 @@ class EnquestaController extends Controller
 
             if(count($formatedOpcions) <= 1)
             {
-                $formattedPregunta +=
-                [
-                    "placeholder" => $formatedOpcions[0],
-                ];
+                if($formatedOpcions == null || !isset($formatedOpcions))
+                {
+                    $formattedPregunta +=
+                    [
+                        "placeholder" => "Inserta un valor",
+                    ];
+                }
+                else
+                {
+                    $formattedPregunta +=
+                    [
+                        "placeholder" => $formatedOpcions[0],
+                    ];
+                }
+                
             }
             else
             {
@@ -87,11 +98,9 @@ class EnquestaController extends Controller
             $formattedData2[] = $formattedPregunta;
         }
 
-        $formattedData = $formattedData2;
-
         // Return a sample result for demonstration
         return [
-            'enquesta' => $formattedData,
+            'enquesta' => $formattedData2,
             'result' => 'Succes',
         ];
     }

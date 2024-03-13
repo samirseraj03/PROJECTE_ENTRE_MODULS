@@ -99,8 +99,6 @@ class DishchargeController extends Controller
         $Pregunta->save();
 
         $id_pregunta_nueva = $Pregunta->id_pregunta;
-
-
  
         if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5" ){
             // recogemos los datos para tipus de preguntas 
@@ -109,8 +107,6 @@ class DishchargeController extends Controller
             $arrayTmp = array_map('intval', $arrayTmp);
 
             $opciones = opciones::all();
-
-
 
             for ( $i = 0 ; $i < count($opciones) - 1 ; $i++){
                 

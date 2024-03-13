@@ -77,10 +77,6 @@ Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name(
 //para insertar la pregutna a la base de datos
 Route::post('/new-ask', [DishchargeController::class, 'insert_new_ask'])->name('new_ask');
 
-
-//Vista predefinaida vacia encuesta
-Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
-
 //Vista encuesta especificada
 Route::get('/enquesta', [EnquestaController::class,'postEnquesta'])->name('enquesta');
 
