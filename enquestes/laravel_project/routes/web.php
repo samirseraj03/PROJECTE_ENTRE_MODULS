@@ -75,9 +75,6 @@ Route::post('/new_option', [DishchargeController::class, 'InsertOption'])->name(
 
 Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name('new_ask');
 
-//Vista predefinaida vacia encuesta
-Route::get('/enquesta', [EnquestaController::class,'getEnquesta']);
-
 // para obtener los primperos datos de new-ask
 Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name('new_ask');
 
@@ -85,7 +82,7 @@ Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name(
 Route::post('/new-ask', [DishchargeController::class, 'insert_new_ask'])->name('new_ask');
 
 //Vista encuesta especificada
-Route::get('/enquesta', [EnquestaController::class,'postEnquesta'])->name('enquesta');
+Route::get('/enquesta', [EnquestaController::class,'getEnquesta'])->name('enquesta');
 
 
 //vista pregunta para obtener opciones new-ask

@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EnquestaController;
 
 
 /*
@@ -21,3 +22,5 @@ use App\Http\Controllers\HomeController;
 Route::get('/hello', [HelloController::class, 'index']);
 
 Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
+
+Route::get('/enquesta', [EnquestaController::class,'mostrarEnquesta'])->name('enquesta');
