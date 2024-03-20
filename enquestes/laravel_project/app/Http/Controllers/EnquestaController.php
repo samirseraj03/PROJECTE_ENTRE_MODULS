@@ -13,16 +13,15 @@ use Mockery\Undefined;
 
 class EnquestaController extends Controller
 {
-    public function getEnquesta(Request $request): View
+    public function mostrarEnquesta(Request $request)
     {
-        // Retrieve parameters from the request
-        $param1 = $request->input('param1');
+        // Retrieve the selectParam from the request
+        $selectParam = $request->input('enquesta');
 
-        // Your logic based on parameters
-        $result = $this->processData($param1);
+        $result = $this->processData($selectParam);
 
         // Return the view with processed data
-        return view('survey2', ['data' => $result]);
+        return $result;
     }
 
     private function processData($param1)
@@ -105,7 +104,7 @@ class EnquestaController extends Controller
         ];
     }
 
-    public function postEnquesta(Request $request): View
+    public function getEnquesta(Request $request): View
     {
         // Retrieve the selectParam from the request
         $selectParam = $request->input('selectEnquesta');
