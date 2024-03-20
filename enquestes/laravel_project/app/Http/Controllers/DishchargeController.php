@@ -81,6 +81,15 @@ class DishchargeController extends Controller
        return response()->json($opciones); 
     }
 
+    public function InsertOption(Request $request) : RedirectResponse{
+
+        $opciones = new opciones();
+        $opciones->descripcion =  $request->input('opcio'); ;
+
+        return redirect()->route('home')->with('success', 'pregunta creada correctamente');
+    }
+    
+
 
     public function insert_new_ask(Request $request) :  RedirectResponse {
    

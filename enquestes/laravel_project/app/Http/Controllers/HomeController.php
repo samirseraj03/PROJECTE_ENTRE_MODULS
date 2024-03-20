@@ -26,3 +26,5 @@ class HomeController extends Controller
         return response()->json($encuestas);
     }
 }
+
+`""  HOLA CABRON Al Home QUE TANTO BUSCABAS ""`;

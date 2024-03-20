@@ -98,6 +98,8 @@
                     <li><button class="dropdown-item" type="button"><a class="link-success link-offset-2 link-underline link-underline-opacity-0" href="{{ route('new_company') }}">Donar d'alta localització</a></button></li>
                     <li><button class="dropdown-item" type="button"><a class="link-success link-offset-2 link-underline link-underline-opacity-0" href="{{ route('new_survey') }}">Enquestes</a></button></li>
                     <li><button class="dropdown-item" type="button"> <a class="link-success link-offset-2 link-underline link-underline-opacity-0" href="{{ route('new_ask') }}">Donar d'alta noves preguntes enquestes</a></button></li>
+                    <li><button class="dropdown-item" type="button"> <a class="link-success link-offset-2 link-underline link-underline-opacity-0" href="{{ route('new_option') }}">Donar d'alta opcions</a></button></li>
+
                 </ul>
             </div>
         </nav>

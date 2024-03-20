@@ -79,11 +79,16 @@ CREATE TABLE encuesta (
 );
 
 
+
+
+
 CREATE table tipus_pregunta(
     id_tipus serial PRIMARY key,
     tipus varchar(255) not null
 
 );
+
+
 
 
 INSERT INTO tipus_pregunta (id_tipus , tipus) VALUES
@@ -126,6 +131,15 @@ CREATE TABLE respuestas (
   id_usuarios int  REFERENCES Usuarios(id) ON DELETE CASCADE not null
 
 );
+
+create table informes(
+  id_informe serial PRIMARY key,
+  usuari INT REFERENCES Usuarios(id) ON DELETE CASCADE,
+  enquesta INT REFERENCES encuesta(id_encuesta) ON DELETE CASCADE ,
+  company INT REFERENCES Empresa(id_empresa) ON DELETE CASCADE,
+  n_preguntas INT 
+);
+
 
 
 CREATE TABLE informe_encuestas (

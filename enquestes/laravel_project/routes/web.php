@@ -66,6 +66,13 @@ Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeComp
 Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->name('new_survey');
 
 
+Route::get('/new-new_option', function () {
+    return view('discharge.new-option');
+})->name('new_option');
+
+Route::post('/new_option', [DishchargeController::class, 'InsertOption'])->name('new_option');
+
+
 Route::get('/new-ask', [DishchargeController::class, 'LoadDischargeAsk'])->name('new_ask');
 
 //Vista predefinaida vacia encuesta
