@@ -18,6 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/AjaxWelcome.js') }}" defer></script>
 
 
 
@@ -874,24 +876,19 @@
                                 </div>
                             </div>
                             <div class="col-6 mt-2">
-                                <p class="mb-3">Preguntas contestadas de la empresa:</p>
-                                <select id="selectEmpresa" class="form-select form-select-lg" aria-label="Large select example">
+                                <p class="mb-3">enquestas contestadas de la empresa:</p>
+                                <select id="selectEmpresa_enquesta" class="form-select form-select-lg" aria-label="Large select example">
                                     <option value="" selected>Tria empresa</option>
                                     @foreach ($empresas as $empresa)
                                     <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
                                     @endforeach
                                 </select>
-
-
                             </div>
                             <div class="col">
-                                <p class="text-xl text-center" id="contador_preguntas">#158</p>
-
+                                <p class="text-xl text-center" id="contador_enquestas">#158</p>
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                         <div class="row w-100 items-center">
