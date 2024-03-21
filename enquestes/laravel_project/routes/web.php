@@ -9,6 +9,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\EnquestaController;
 use App\Http\Controllers\DishchargeController;
+use App\Http\Controllers\WelcomeController;
+
+
 
 
 
@@ -90,6 +93,6 @@ Route::get('/getopciones', [DishchargeController::class,'getopciones'])->name('g
 
 
 // Otras rutas
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [WelcomeController::class,'mostrarEmpresa'])->name('empresa');
+
