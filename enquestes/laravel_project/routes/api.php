@@ -20,7 +20,13 @@ use App\Http\Controllers\EnquestaController;
 
 
 Route::get('/hello', [HelloController::class, 'index']);
-
 Route::get('/home', [HomeController::class, 'mostrarEmpresa']);
-
 Route::get('/enquesta', [EnquestaController::class,'mostrarEnquesta'])->name('enquesta');
+
+
+// apis 
+Route::get('/enquestas', [EnquestaController::class,'GetALLEnquestas'])->name('enquesta');
+
+Route::get('/enquestas/{id}', [HomeController::class,'getEncuestasPorEmpresaWithid']);
+
+

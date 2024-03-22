@@ -13,6 +13,27 @@ use Mockery\Undefined;
 
 class EnquestaController extends Controller
 {
+
+    public function GetALLEnquestas()
+    {
+
+        try {
+            $empresas = Encuesta::all();
+            return response()->json([
+                'success' => true,
+                'data' => $empresas
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error en mostrar la Empresa'
+            ], 500);
+        }
+    }
+
+
+
+
     public function mostrarEnquesta(Request $request)
     {
         try {
@@ -23,9 +44,7 @@ class EnquestaController extends Controller
 
             // Return the view with processed data
             return $result;
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -42,13 +61,12 @@ class EnquestaController extends Controller
             // For example, you can query a database, perform calculations, etc.
             //$items = encuesta::where('id_encuesta', $param1)->get();
             //$itemsFormatats = $items->toArray();
-            $idEncuesta = $param1;//$itemsFormatats[0]['id_encuesta'];
+            $idEncuesta = $param1; //$itemsFormatats[0]['id_encuesta'];
 
             $preguntes = preguntas::where('id_encuesta', $idEncuesta)->get();
             $preguntesFormatades = $preguntes->toArray();
 
-            foreach ($preguntesFormatades as &$pregunta) 
-            {
+            foreach ($preguntesFormatades as &$pregunta) {
                 $formattedPregunta = [];
 
                 // Save Questions parameters
@@ -65,55 +83,46 @@ class EnquestaController extends Controller
                 $formatedOpcions = [];
 
                 $opcions = opciones::where('id_pregunta', $id_pregunta)->get();
-                $opcionsFormatades = $opcions-> toArray();
+                $opcionsFormatades = $opcions->toArray();
 
-                foreach($opcionsFormatades as &$opcio)
-                {
+                foreach ($opcionsFormatades as &$opcio) {
                     $formatedOpcions[] = $opcio['descripcion'];
                 }
 
-                $formattedPregunta += 
-                [
-                    "id" => "$id_pregunta",
-                    "tipus" => "$nom_tipus" ,
-                    "pregunta" => "$enunciat",
-                ];
-
-                if(count($formatedOpcions) <= 1)
-                {
-                    if($formatedOpcions == null || !isset($formatedOpcions))
-                    {
-                        $formattedPregunta +=
-                        [
-                            "placeholder" => "Inserta un valor",
-                        ];
-                    }
-                    else
-                    {
-                        $formattedPregunta +=
-                        [
-                            "placeholder" => $formatedOpcions[0],
-                        ];
-                    }  
-                }
-                else
-                {
-                    $formattedPregunta +=
+                $formattedPregunta +=
                     [
-                        "opcions" => $formatedOpcions,
+                        "id" => "$id_pregunta",
+                        "tipus" => "$nom_tipus",
+                        "pregunta" => "$enunciat",
                     ];
+
+                if (count($formatedOpcions) <= 1) {
+                    if ($formatedOpcions == null || !isset($formatedOpcions)) {
+                        $formattedPregunta +=
+                            [
+                                "placeholder" => "Inserta un valor",
+                            ];
+                    } else {
+                        $formattedPregunta +=
+                            [
+                                "placeholder" => $formatedOpcions[0],
+                            ];
+                    }
+                } else {
+                    $formattedPregunta +=
+                        [
+                            "opcions" => $formatedOpcions,
+                        ];
                 }
                 $formattedData2[] = $formattedPregunta;
             }
 
-        // Return a sample result for demonstration
-        return [
-            'enquesta' => $formattedData2,
-            'result' => 'Succes',
-        ];
-
-        } catch(\Exception $e)
-        {
+            // Return a sample result for demonstration
+            return [
+                'enquesta' => $formattedData2,
+                'result' => 'Succes',
+            ];
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -131,9 +140,7 @@ class EnquestaController extends Controller
 
             // Return the view with processed data
             return view('survey', ['data' => $result]);
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
