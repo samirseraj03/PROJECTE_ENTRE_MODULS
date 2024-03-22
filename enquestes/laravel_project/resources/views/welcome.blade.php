@@ -885,7 +885,7 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <p class="text-xl text-center" id="contador_enquestas">#158</p>
+                                <p class="text-xl text-center" id="contador_enquestas">#---</p>
                             </div>
                         </div>
                     </div>
@@ -902,16 +902,11 @@
                             @if (Route::has('login'))
                             @auth
                             <div class="col-6 mt-2">
-                                <p class="mb-3">Preguntas que has contestat</p>
-                                <select id="selectEmpresa" class="form-select form-select-lg" aria-label="Large select example">
-                                    <option value="" selected>Tria empresa</option>
-                                    @foreach ($empresas as $empresa)
-                                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
-                                    @endforeach
-                                </select>
+                                <p class="mb-3">Preguntas que has contestat :</p>
+
                             </div>
                             <div class="col">
-                                <p class="text-xl text-center" id="contador_preguntas">#158</p>
+                                <p class="text-xl text-center" id="contador_preguntas_usuari">#---</p>
                             </div>
                             @else
                             <div class="col">
@@ -934,18 +929,15 @@
                             </div>
                             <div class="col-6 mt-2">
                                 <p class="mb-3">Preguntas contestadas de la empresa:</p>
-                                <select id="selectEmpresa" class="form-select form-select-lg" aria-label="Large select example">
+                                <select id="selectEmpresaPreguntas" class="form-select form-select-lg" aria-label="Large select example">
                                     <option value="" selected>Tria empresa</option>
                                     @foreach ($empresas as $empresa)
                                     <option value="{{ $empresa->id_empresa }}">{{ $empresa->nombre }}</option>
                                     @endforeach
                                 </select>
-
-
                             </div>
                             <div class="col">
-                                <p class="text-xl text-center" id="contador_preguntas">#158</p>
-
+                                <p class="text-xl text-center" id="contador_preguntas">#---</p>
                             </div>
                         </div>
                     </div>

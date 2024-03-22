@@ -96,3 +96,14 @@ Route::get('/getopciones', [DishchargeController::class,'getopciones'])->name('g
 
 Route::get('/', [WelcomeController::class,'mostrarEmpresa'])->name('empresa');
 
+
+// informes 
+Route::get('/countEnquestas', [InformesController::class, 'countEnquestas'])->name('countEnquestas');
+
+Route::get('/countPreguntas', [InformesController::class, 'countPreguntasPerUsuari'])->name('countPreguntas');
+
+Route::get('/countUsuariContestat', [InformesController::class, 'getSurveyUser'])->name('countUsuariContestat');
+
+
+
+

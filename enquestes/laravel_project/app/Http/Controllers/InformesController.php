@@ -27,16 +27,18 @@ class InformesController extends Controller
 
     }
 
-    public function countEnquestas(Request $id_company){
+    public function countEnquestas(Request $request){
 
+        $id_company = $request->input('idEmpresa');              
         $companySurvey = informes::where('company', $id_company)->get();
         return count($companySurvey);
     }
 
-    public function countPreguntasPerUsuari(){
+    public function countPreguntasPerUsuari(Request $request){
 
-        $userId = auth()->user()->id; // Obtener el ID del usuario autenticado
-        $UserSurveyPreguntas = informes::where('usuari', $userId)->pluck('n_preguntas');
+        $id_company = $request->input('idEmpresa');              
+
+        $UserSurveyPreguntas = informes::where('usuari', $id_company)->pluck('n_preguntas');
         $count = 0;
         foreach ($UserSurveyPreguntas as $pregutnas){
 
