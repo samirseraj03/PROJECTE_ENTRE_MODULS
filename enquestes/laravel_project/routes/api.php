@@ -29,4 +29,7 @@ Route::get('/enquestas', [EnquestaController::class,'GetALLEnquestas'])->name('e
 
 Route::get('/enquestas/{id}', [HomeController::class,'getEncuestasPorEmpresaWithid']);
 
+Route::get('/enquestas/{id}/{preguntas}', [HomeController::class,'getEncuestasPorEmpresaWithid']);
+
+
 

@@ -105,5 +105,11 @@ Route::get('/countPreguntas', [InformesController::class, 'countPreguntasPerUsua
 Route::get('/countUsuariContestat', [InformesController::class, 'getSurveyUser'])->name('countUsuariContestat');
 
 
+Route::get('/informes', [InformesController::class, 'obtenerInformacionUsuarios'])->name('informes');
+
+
+// Route::get('/informes', function () {
+//     return view('informes');
+// })->name('informes');
 
 
