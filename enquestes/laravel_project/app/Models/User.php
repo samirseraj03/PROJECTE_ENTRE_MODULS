@@ -27,6 +27,7 @@ class User extends Authenticatable
         'nombre',
         'correo',
         'contrasenya',
+        'id_enquestadores'
     ];
 
     /**

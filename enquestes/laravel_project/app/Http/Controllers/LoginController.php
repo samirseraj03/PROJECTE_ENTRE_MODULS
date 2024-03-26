@@ -52,17 +52,24 @@ class LoginController extends Controller
         
             // Busca el usuario por correo
             $user = user::where('correo', $credentials['correo'])->first();
-    
-           // dd($user  , password_hash( $credentials['contrasenya']  , PASSWORD_BCRYPT),  $user->contrasenya);
-           // dd (password_verify($credentials['contrasenya'], $user->contrasenya));
+
+
+            // comprobar el password si esta ben posat o no
             if ($user && password_verify($credentials['contrasenya'], $user->contrasenya)) {
-                // Autenticación exitosa
-                Auth::login($user); // Inicia sesión en el sistema
-                return redirect('/home')->with('success', '¡Registro exitoso!');
-                // return redirect()->intended('/dashboard'); // Redirige a la página deseada después del inicio de sesión
+
+                if ($user->id_enquestadores != null){
+                    Auth::login($user); // Inicia sesión en el sistema
+                    session(['id_enquestadores' => $user->id_enquestadores]);
+                      // Autenticación exitosa
+                    return redirect('/home')->with('success', '¡Registro exitoso!');
+                }else{
+                    Auth::login($user); // Inicia sesión en el sistema
+                    return redirect('/home')->with('success', '¡Registro exitoso!');
+                }
+
+              
             } else {
-                // Autenticación fallida
-                // return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);
+                // Autenticación fallida 
                 return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);
             }
 
