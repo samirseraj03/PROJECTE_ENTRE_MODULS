@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de importar el modelo de usuario si lo estás utilizando
 use Illuminate\Support\Facades\Hash;
+use App\Mail\MyEmail;
+use Mail;
+
 
 
 class RegisterController extends Controller
@@ -34,16 +37,13 @@ class RegisterController extends Controller
             ]);
             
     
-    
             User::create([
                 'nombre' => $request->nombre,
                 'correo' => $request->correo,
                 'contrasenya' => $request->contrasenya, 
     
             ]);
-    
-        
-            // return 'hola';
+            Mail::to($request->correo)->send(new MyEmail($request->nombre,"s'ha creat l'usuari correctament."));
             return redirect('/login')->with('success', '¡Registro exitoso!');
         
         /*} catch(\Exception $e)
