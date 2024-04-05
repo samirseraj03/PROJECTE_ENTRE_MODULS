@@ -72,6 +72,7 @@ class RegisterController extends Controller
                 }
             
                 // return 'hola';
+                Mail::to($request->correo)->send(new MyEmail($request->nombre,"s'ha creat l'usuari correctament."));
                 return redirect('/login')->with('success', '¡Registro exitoso!');
             
     
