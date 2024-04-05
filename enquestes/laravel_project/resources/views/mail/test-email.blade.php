@@ -1,0 +1,1 @@
+Benvolgut usuari {{$name}}, {{$content}}
