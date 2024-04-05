@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de importar el modelo de usuario si lo estás utilizando
 use Illuminate\Support\Facades\Hash;
 use App\Mail\MyEmail;
-use Mail;
 
 use App\Http\Controllers\HomeController;
 use App\Models\enquestadores;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -21,10 +21,9 @@ class RegisterController extends Controller
             // Llama al método mostrarEmpresaSinRedirecion
             $empresas = $homeController->mostrarEmpresaSinRedirecion();
 
-            return view('auth.fortify.register', ['empresas' => $empresas]);// Nombre de la vista del formulario de registro
+            return view('auth.fortify.register', ['empresas' => $empresas]); // Nombre de la vista del formulario de registro
 
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -45,58 +44,43 @@ class RegisterController extends Controller
                 ->where('correo', $request->correo)
                 ->get();
 
-            if ($usuarios->isEmpty()){
-                if ($request->enquestador == 'si'){
+            if ($usuarios->isEmpty()) {
+                if ($request->enquestador == 'si') {
 
                     $enquestador = new enquestadores();
                     $enquestador->id_empresa = $request->idEmpresa;
                     $enquestador->localizacion = $request->idEmpresa;
                     $enquestador->save();
-                    $nueva_id = $enquestador->id_enquestadores;  
+                    $nueva_id = $enquestador->id_enquestadores;
 
 
                     User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
-                        'contrasenya' => $request->contrasenya, 
+                        'contrasenya' => $request->contrasenya,
                         'id_enquestadores' => $nueva_id,
-            
-                    ]);      
-                }
-                else{
+
+                    ]);
+                    // return 'hola';
+                    Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat l'usuari correctament."));
+                    return redirect('/login')->with('success', '¡Registro exitoso!');
+                } else {
                     User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
-                        'contrasenya' => $request->contrasenya, 
+                        'contrasenya' => $request->contrasenya,
                     ]);
+                    Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat l'usuari correctament."));
+                    return redirect('/login')->with('success', '¡Registro exitoso!');
                 }
-            
-                // return 'hola';
-                Mail::to($request->correo)->send(new MyEmail($request->nombre,"s'ha creat l'usuari correctament."));
-                return redirect('/login')->with('success', '¡Registro exitoso!');
-            
-    
-            User::create([
-                'nombre' => $request->nombre,
-                'correo' => $request->correo,
-                'contrasenya' => $request->contrasenya, 
-    
-            ]);
-            Mail::to($request->correo)->send(new MyEmail($request->nombre,"s'ha creat l'usuari correctament."));
-            return redirect('/login')->with('success', '¡Registro exitoso!');
-        
-            }
-            else{
+            } else {
                 return redirect('/register')->with('error', '¡Cuenta utilizada!');
-            }       
-        } catch(\Exception $e)
-        {
+            }
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e
             ], 500);
         }
-        
     }
-
 }
