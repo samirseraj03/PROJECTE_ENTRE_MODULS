@@ -61,7 +61,7 @@ class InformesController extends Controller
         try {
             $resultados = DB::table('usuarios as u')
             ->select('u.id', 'u.nombre', DB::raw('SUM(n_preguntas) as n_preguntas'))
-            ->join('informes as i', 'i.usuari', '=', 'u.id')
+            ->join('informes as i', 'i.usuario', '=', 'u.id')
             ->groupBy('u.id', 'u.nombre')
             ->get();
     

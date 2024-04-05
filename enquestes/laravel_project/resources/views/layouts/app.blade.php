@@ -73,7 +73,7 @@
                             </a>
                             <div class="dropdown-menu  " aria-labelledby="enquestesDropdown">
                                 <a class="dropdown-item" href="{{ route('new_ask') }}">Donar d'alta noves preguntes enquestes</a>
-                                <a class="dropdown-item" href="{{ route('new_option') }}">Donar d'alta opcions</a>
+                                <a class="dropdown-item" href="{{ route('show_option_form') }}">Donar d'alta opcions</a>
                                 <a class="dropdown-item" href="{{ route('informes') }}">Informes</a>
                             </div>
                         </li>

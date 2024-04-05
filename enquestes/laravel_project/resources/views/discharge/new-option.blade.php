@@ -8,7 +8,7 @@
             <form action="{{ route('new_option') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="nombreEmpresa" class="form-label">Posa la nova opcioj</label>
+                    <label for="nombreEmpresa" class="form-label">Posa la nova opcio</label>
                     <input type="text" class="form-control" id="nombreEmpresa" name="opcio" placeholder="opcio">
                 </div>
                 <button type="submit" class="btn btn-secondary">Donar D'alta</button>

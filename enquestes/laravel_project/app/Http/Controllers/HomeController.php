@@ -24,6 +24,23 @@ class HomeController extends Controller
         }
     }
 
+    public function mostrarEmpresaSinRedirecion()
+    {
+        try {
+            $empresas = empresa::all();
+            return $empresas;
+
+        } catch(\Exception $e)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error en mostrar la Empresa'
+            ], 500);
+        }
+    }
+
+
+
     public function getEncuestasPorEmpresa(Request $request , $id)
     {
         try {

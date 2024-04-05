@@ -30,7 +30,9 @@ use App\Http\Controllers\WelcomeController;
 
 // Rutas de Fortify
 Route::group(['prefix' => config('fortify.routes.prefix')], function () {
+
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
     Route::post('/register', [RegisterController::class, 'register']);
 
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -42,6 +44,10 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
 });
+
+
+
+
 
 Route::get('/informes' , [InformesController::class , 'getInformes']);
 
@@ -71,7 +77,7 @@ Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->na
 
 Route::get('/new-new_option', function () {
     return view('discharge.new-option');
-})->name('new_option');
+})->name('show_option_form');
 
 Route::post('/new_option', [DishchargeController::class, 'InsertOption'])->name('new_option');
 

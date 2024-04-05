@@ -13,7 +13,7 @@ class enquestadores extends Model
 
 
     protected $fillable = [
-        'localitzacion', // Descripción de la opcion
+        'localizacion', // Descripción de la opcion
         'id_empresa', // Id pregunta relacionada
     ];
 
