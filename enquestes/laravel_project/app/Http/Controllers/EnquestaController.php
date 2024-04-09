@@ -16,7 +16,6 @@ class EnquestaController extends Controller
 
     public function GetALLEnquestas()
     {
-
         try {
             $empresas = Encuesta::all();
             return response()->json([
@@ -30,9 +29,6 @@ class EnquestaController extends Controller
             ], 500);
         }
     }
-
-
-
 
     public function mostrarEnquesta(Request $request)
     {
