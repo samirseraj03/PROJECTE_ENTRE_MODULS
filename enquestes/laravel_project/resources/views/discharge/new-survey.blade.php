@@ -7,7 +7,7 @@
         @csrf
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
+                <h5 class="card-title mb-4">Selecciona l'empresa amb la qual treballes</h5>
                 <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
                     <option value="" selected>Seleccionar empresa</option>
                     @foreach ($empresas as $empresa)
@@ -20,18 +20,18 @@
         <div class="card text-center mt-5">
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="nombreEncuesta" class="form-label">Descripción de la encuesta</label>
+                    <label for="nombreEncuesta" class="form-label">Descripció de l'enquesta</label>
                     <input type="text" class="form-control" id="nombreEncuesta" name="nombreEncuesta" placeholder="Nombre de la encuesta">
                 </div>
 
-                <label for="fechaFinalizacion" class="form-label">Fecha de finalización</label>
+                <label for="fechaFinalizacion" class="form-label">Data de finalizació</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="date" class="form-control" name="fechaFinalizacion"  id="fechaFinalizacion" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                 </div>
 
                 <!-- Botón para abrir el modal -->
                 <button type="button" class="btn btn-success d-flex align-items-start w-25 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <span class="text-center">Dar De alta</span>
+                    <span class="text-center">Donar d'alta</span>
                 </button>
 
                 <!-- Modal -->
@@ -46,8 +46,8 @@
                                 <p>¿Estás seguro de dar de alta?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Dar alta a la encuesta</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tancar</button>
+                                <button type="submit" class="btn btn-primary">Donar d'alta a l'enquesta</button>
                             </div>
                         </div>
                     </div>

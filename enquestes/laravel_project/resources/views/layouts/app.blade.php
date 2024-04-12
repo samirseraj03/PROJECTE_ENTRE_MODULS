@@ -63,10 +63,10 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('new_company') }}">Donar d'alta localització</a>
+                            <a class="nav-link" href="{{ route('new_company') }}">Donar d'alta la localització</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('new_survey') }}">Donar d'alta Enquestes</a>
+                            <a class="nav-link" href="{{ route('new_survey') }}">Donar d'alta les enquestes</a>
                         </li>
                         <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="enquestesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Més

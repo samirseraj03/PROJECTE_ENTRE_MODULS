@@ -61,18 +61,18 @@ class RegisterController extends Controller
                         'id_enquestadores' => $nueva_id,
 
                     ]);
-                    // return 'hola';
-                    Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat l'usuari correctament."));
-                    return redirect('/login')->with('success', '¡Registro exitoso!');
+
                 } else {
                     User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
                         'contrasenya' => $request->contrasenya,
                     ]);
-                    Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat l'usuari correctament."));
-                    return redirect('/login')->with('success', '¡Registro exitoso!');
-                }
+                }                    
+                //Enviar correu validació
+                Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));
+                return redirect('/login')->with('success', '¡Registro exitoso!');
+
             } else {
                 return redirect('/register')->with('error', '¡Cuenta utilizada!');
             }

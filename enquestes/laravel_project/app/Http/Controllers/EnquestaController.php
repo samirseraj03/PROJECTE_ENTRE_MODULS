@@ -54,9 +54,6 @@ class EnquestaController extends Controller
             // Saved Json
             $formattedData2 = [];
 
-            // For example, you can query a database, perform calculations, etc.
-            //$items = encuesta::where('id_encuesta', $param1)->get();
-            //$itemsFormatats = $items->toArray();
             $idEncuesta = $param1; //$itemsFormatats[0]['id_encuesta'];
 
             $preguntes = preguntas::where('id_encuesta', $idEncuesta)->get();

@@ -81,5 +81,3 @@ class HomeController extends Controller
         }
     }
 }
-
-`""  HOLA CABRON Al Home QUE TANTO BUSCABAS ""`;

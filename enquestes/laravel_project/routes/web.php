@@ -11,12 +11,6 @@ use App\Http\Controllers\EnquestaController;
 use App\Http\Controllers\DishchargeController;
 use App\Http\Controllers\WelcomeController;
 
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,9 +38,6 @@ Route::group(['prefix' => config('fortify.routes.prefix')], function () {
     Route::get('/home', [HomeController::class, 'mostrarEmpresa'])->name('home');
 
 });
-
-
-
 
 
 Route::get('/informes' , [InformesController::class , 'getInformes']);
@@ -92,7 +83,6 @@ Route::post('/new-ask', [DishchargeController::class, 'insert_new_ask'])->name('
 
 //Vista encuesta especificada
 Route::get('/enquesta', [EnquestaController::class,'getEnquesta'])->name('enquesta');
-
 
 //vista pregunta para obtener opciones new-ask
 Route::get('/getopciones', [DishchargeController::class,'getopciones'])->name('getopciones');

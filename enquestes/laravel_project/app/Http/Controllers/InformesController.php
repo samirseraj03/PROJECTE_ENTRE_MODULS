@@ -91,7 +91,7 @@ class InformesController extends Controller
                 'message' => $e
             ], 500);
         }
-       // return $arrayResultados;
+
     }
 
 

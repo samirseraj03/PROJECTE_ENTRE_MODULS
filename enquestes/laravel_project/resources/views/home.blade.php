@@ -6,7 +6,7 @@
     <form action="{{ route('enquesta') }}" method="GET">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title mb-4">Seleccionar la empresa con la que estás trabajando</h5>
+                <h5 class="card-title mb-4">Selecciona l'empresa amb la qual estàs treballant</h5>
                 <select id="selectEmpresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
                     <option value="" selected>Seleccionar empresa</option>
                     @foreach ($empresas as $empresa)
@@ -17,12 +17,12 @@
         </div>
         <div class="card text-center mt-5">
             <div class="card-body">
-                <h5 class="card-title">Seleccionar la encuesta</h5>
-                <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres responder</p>
+                <h5 class="card-title">Seleccionar l'enquesta</h5>
+                <p class="card-text">Després de seleccionar l'empresa, selecciona l'enquesta que vols respondre</p>
                 <select id="selectEnquesta" name="selectEnquesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                    <option value="" selected>Seleccionar encuesta</option>
+                    <option value="" selected>Seleccionar enquesta</option>
                 </select>
-                <button id="getSurvey" type="submit" class="btn btn-primary">Responder la pregunta</button>
+                <button id="getSurvey" type="submit" class="btn btn-primary">Respondre la pregunta</button>
             </div>
         </div>
     </form>

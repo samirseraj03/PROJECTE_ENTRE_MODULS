@@ -18,9 +18,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Número de Preguntas</th>
-                <th scope="col">Estado</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Número de preguntes</th>
+                <th scope="col">Estat</th>
             </tr>
         </thead>
         <tbody>

@@ -10,7 +10,7 @@
                 <!-- seleccionar la empresa o la localitazio -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title pb-3 mb-5">Seleccionar la empresa con la que estás trabajando</h5>
+                        <h5 class="card-title pb-3 mb-5">Seleccionar la empresa amb la que estás treballant</h5>
                         <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-4 mt-1" aria-label="Large select example">
                             <option value="" selected>Seleccionar empresa</option>
                             @foreach ($empresas as $empresa)
@@ -25,7 +25,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Seleccionar la encuesta</h5>
-                        <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que quieres agregar para agregar la pregunta</p>
+                        <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que vols afegir per agregar la pregunta</p>
                         <select name="selectEncuesta" id="selectEncuesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option value="" selected>Seleccionar encuesta</option>
                         </select>
@@ -38,13 +38,13 @@
         <div class="card text-center mt-5" id="selectTipus">
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="nombrePregunta" class="form-label">Descripción de la pregutna</label>
+                    <label for="nombrePregunta" class="form-label">Descripció de la pregunta</label>
                     <input type="text" class="form-control" id="nombreEncuesta" name="nombrePregunta" placeholder="Nombre de la pregunta">
                 </div>
 
                 <label for="TipusPregutnta" class="form-label">Tipus de Pregunta</label>
                 <select name="selectTipusPregunta" id="selectTipusPregunta" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                    <option  value="" selected>Seleccionar opcio</option>
+                    <option  value="" selected>Seleccionar opció</option>
                     @foreach ($tipus as $tipus_pregunta)
                     <option value="{{ $tipus_pregunta->id_tipus }}">{{ $tipus_pregunta->tipus }}</option>
                     @endforeach
@@ -53,15 +53,15 @@
             <div class="row" id="selectAdicional" style="display: none;">
                 <div class="col">
                     <div class="card-body">
-                        <label for="TipusPregutnta" class="form-label">selecciona els opcions que vols afegir</label>
+                        <label for="TipusPregutnta" class="form-label">Selecciona les opcions que vols afegir</label>
                         <select id="selectOpcion" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option value="" selected>Seleccionar opcio</option>
+                            <option value="" selected>Seleccionar opció</option>
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card-body">
-                        <label for="TipusPregutnta" class="form-label">els opcions que s'han afegit</label>
+                        <label for="TipusPregutnta" class="form-label">Les opcions que s'han afegit</label>
                         <div class="row" id="opcionsAfegides"></div>
                         <input type="hidden" name="opcionsSeleccionades" id="opcionsSeleccionades">
                     </div>
@@ -72,7 +72,7 @@
 
         <!-- Botón para abrir el modal -->
         <button type="button" class="btn btn-success d-flex align-items-start w-25 mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <span class="text-center">Dar De alta</span>
+            <span class="text-center">Donar d'alta</span>
         </button>
 
         <!-- Modal -->
@@ -84,11 +84,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Estás seguro de dar de alta?</p>
+                        <p>¿Estás seguro de voler donar d'alta?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Dar alta a la pregunta</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tancar</button>
+                        <button type="submit" class="btn btn-primary">Donar d'alta la pregunta</button>
                     </div>
                 </div>
             </div>
