@@ -39,5 +39,3 @@ services:
 networks:
   enq-network:
     driver: bridge
-  db_network:
-    driver: bridge
