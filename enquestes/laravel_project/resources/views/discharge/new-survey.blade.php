@@ -5,8 +5,8 @@
 <div class="container mt-5">
     <form action="{{ route('new_survey') }}" method="POST">
         @csrf
-        <div class="card text-center">
-            <div class="card-body">
+        <div class="card text-center linear-gradient_css">
+            <div class="card-body linear-gradient_css">
                 <h5 class="card-title mb-4">Selecciona l'empresa amb la qual treballes</h5>
                 <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-3" aria-label="Large select example">
                     <option value="" selected>Seleccionar empresa</option>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="card text-center mt-5">
-            <div class="card-body">
+            <div class="card-body linear-gradient_css">
                 <div class="mb-3">
                     <label for="nombreEncuesta" class="form-label">Descripció de l'enquesta</label>
                     <input type="text" class="form-control" id="nombreEncuesta" name="nombreEncuesta" placeholder="Nombre de la encuesta">

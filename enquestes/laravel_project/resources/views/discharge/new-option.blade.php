@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-5">
-    <div class="card text-center mt-5">
+    <div class="card text-center mt-5 linear-gradient_css">
         <div class="card-body">
             <form action="{{ route('new_option') }}" method="POST">
                 @csrf

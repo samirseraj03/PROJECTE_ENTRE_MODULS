@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col">
                 <!-- seleccionar la empresa o la localitazio -->
-                <div class="card text-center">
+                <div class="card text-center linear-gradient_css">
                     <div class="card-body">
                         <h5 class="card-title pb-3 mb-5">Seleccionar la empresa amb la que estás treballant</h5>
                         <select id="selectEmpresa" name="id_empresa" class="form-select form-select-lg mb-4 mt-1" aria-label="Large select example">
@@ -22,7 +22,7 @@
             </div>
             <div class="col">
                 <!-- selecionar la enquesta -->
-                <div class="card text-center">
+                <div class="card text-center linear-gradient_css">
                     <div class="card-body">
                         <h5 class="card-title">Seleccionar la encuesta</h5>
                         <p class="card-text">Después de seleccionar la empresa, selecciona la encuesta que vols afegir per agregar la pregunta</p>
@@ -35,7 +35,7 @@
 
         </div>
         <!-- la pregunta que es vol afegir  -->
-        <div class="card text-center mt-5" id="selectTipus">
+        <div class="card text-center mt-5 linear-gradient_css" id="selectTipus" >
             <div class="card-body">
                 <div class="mb-3">
                     <label for="nombrePregunta" class="form-label">Descripció de la pregunta</label>
