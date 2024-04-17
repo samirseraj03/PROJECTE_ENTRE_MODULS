@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
 use App\Models\Encuesta;
 use App\Models\opciones;
 use App\Models\preguntas;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Mockery\Undefined;
+use App\Http\Controllers\InformesController;
 
 class EnquestaController extends Controller
 {
@@ -123,6 +125,25 @@ class EnquestaController extends Controller
         }
     }
 
+    private function processEmpresa($param1)
+    {
+        try {
+            // Saved Json
+            $idEncuesta = $param1; //$itemsFormatats[0]['id_encuesta'];
+
+            $encuesta = encuesta::where('id_encuesta', $idEncuesta)->get();
+            $id_empresa = $encuesta[0]['id_empresa'];
+
+            // Return a sample result for demonstration
+            return $id_empresa;
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Credenciales inválidas'
+            ], 500);
+        }
+    }
+
     public function getEnquesta(Request $request): View
     {
         try {
@@ -131,12 +152,72 @@ class EnquestaController extends Controller
 
             $result = $this->processData($selectParam);
 
+            $empresa = $this->processEmpresa($selectParam);
+
+            $info = [];
+
+            $info += ["enquesta_id" => $selectParam];
+            $info += ["empresa_id" => $empresa];
+
             // Return the view with processed data
-            return view('survey', ['data' => $result]);
+            return view('survey', ['data' => $result], ['info' => $info], ['info' => $info]);
+            //var empresa = @json($id_empresa)
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Credenciales inválidas'
+                'message' => $e
+            ], 500);
+        }
+        //'Credenciales inválidas'
+    }
+
+    
+    public function insertResposta(Request $request)
+    {
+        try 
+        {
+            $data = $request->all();
+            
+            // Check if id_empresa exists and is not empty
+            if (!empty($data)) {
+                // Use the id_empresa value in your logic
+                // For example, you can perform database queries, calculations, or other operations
+                // based on the id_empresa value
+
+                $informController = new InformesController();
+
+                try 
+                {   
+                    $id_usuario = auth()->user()->id;
+                }
+                catch (\Exception $e) 
+                {
+                    $id_usuario = 0;
+                }
+
+                $id_empresa = $request->input('id_empresa');
+                $id_enquesta = $request->input('id_enquesta');
+                $num_preguntes = count($request->all())-3; //We take the data of id_empresa, id_enquesta and _token
+
+                $informController->insertarInforme($id_usuario, $id_enquesta, $id_empresa, $num_preguntes);
+            }
+
+            //$id_empresa = $data['data'];
+            /*
+            return response()->json([
+                'success' => true,
+                'data' => $id_usuario,
+            ], 200);
+            */
+            
+            return redirect('/home')->with('success', '¡Encuesta enviada correctamente!');
+            //Enviar correu validació
+            //Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e
             ], 500);
         }
     }

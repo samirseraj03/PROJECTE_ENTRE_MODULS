@@ -65,7 +65,6 @@ Route::post('/submit-localitzacio', [DishchargeController::class, 'DischargeComp
 
 Route::post('/new-survey', [DishchargeController::class, 'DischargeSurvey'])->name('new_survey');
 
-
 Route::get('/new-new_option', function () {
     return view('discharge.new-option');
 })->name('show_option_form');
@@ -83,6 +82,8 @@ Route::post('/new-ask', [DishchargeController::class, 'insert_new_ask'])->name('
 
 //Vista encuesta especificada
 Route::get('/enquesta', [EnquestaController::class,'getEnquesta'])->name('enquesta');
+
+Route::post('/enquesta', [EnquestaController::class, 'insertResposta']);
 
 //vista pregunta para obtener opciones new-ask
 Route::get('/getopciones', [DishchargeController::class,'getopciones'])->name('getopciones');

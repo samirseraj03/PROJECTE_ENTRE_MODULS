@@ -13,7 +13,6 @@
                 </script>
                 @endif
 
-
                 <div class="card-body">
                     <form method="POST" id="cocacolaEspuma" action="{{ route('register') }}">
                         @csrf

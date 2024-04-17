@@ -18,8 +18,21 @@
 function createFormElement(pregunta) 
 {
     const element = document.createElement('div');
-    const label = document.createElement('h4');
-    label.textContent = pregunta.pregunta;
+    var label = "";
+    
+    if(pregunta.tipus != 'radio' && pregunta.tipus != 'checkbox')
+    {
+        label = document.createElement('label');
+        label.textContent = pregunta.pregunta;
+        label.classList.add("h4");
+        label.setAttribute("for", pregunta.id);
+    }
+    else
+    {
+        label = document.createElement('h4');
+        label.textContent = pregunta.pregunta;
+        label.classList.add("h4");
+    }
     element.appendChild(label);
 
     switch (pregunta.tipus) 
@@ -48,10 +61,10 @@ function createFormElement(pregunta)
             break;
 
         case 'checkbox':
-            pregunta.opcions.forEach(opcio => {
+            pregunta.opcions.forEach((opcio, index) => {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-                checkbox.id = pregunta.id + opcio;
+                checkbox.id = pregunta.id + "_" + index;
                 checkbox.classList.add('exclude-styling');
                 checkbox.classList.add('substituted');
                 checkbox.ariaHidden = true;
@@ -67,11 +80,11 @@ function createFormElement(pregunta)
             break;
 
         case 'radio':
-            pregunta.opcions.forEach(opcio => {
+            pregunta.opcions.forEach((opcio, index)=> {
                 const radio = document.createElement('input');
                 radio.type = 'radio';
                 radio.name = pregunta.id;
-                radio.id = pregunta.id + opcio;
+                radio.id = pregunta.id + "_" + index;
                 const label = document.createElement('label');
                 const div = document.createElement('div');
                 label.textContent = opcio;
