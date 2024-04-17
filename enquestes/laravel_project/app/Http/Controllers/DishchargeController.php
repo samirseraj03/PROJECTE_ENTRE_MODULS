@@ -125,7 +125,7 @@ class DishchargeController extends Controller
         $opciones = new opciones();
         $opciones->descripcion =  $request->input('opcio'); ;
 
-        return redirect()->route('home')->with('success', 'pregunta creada correctamente');
+        return redirect()->route('new-new_option')->with('success', 'pregunta creada correctamente');
     }
     
 

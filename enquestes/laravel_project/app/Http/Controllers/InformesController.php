@@ -18,7 +18,7 @@ class InformesController extends Controller
 
         $informes = new informes();
         $informes->enquesta = $id_enquesta;
-        $informes->usuari = $id_usuario;
+        $informes->usuario = $id_usuario;
         $informes->company = $id_company;
         $informes->n_preguntas = $N_preguntas;
         $informes->save();
@@ -28,7 +28,7 @@ class InformesController extends Controller
     {
 
         $userId = auth()->user()->id; // Obtener el ID del usuario autenticado
-        $UserSurvey = informes::where('usuari', $userId)->get();
+        $UserSurvey = informes::where('usuario', $userId)->get();
         return count($UserSurvey);
     }
 
@@ -45,7 +45,7 @@ class InformesController extends Controller
 
         $id_company = $request->input('idEmpresa');
 
-        $UserSurveyPreguntas = informes::where('usuari', $id_company)->pluck('n_preguntas');
+        $UserSurveyPreguntas = informes::where('usuario', $id_company)->pluck('n_preguntas');
         $count = 0;
         foreach ($UserSurveyPreguntas as $pregutnas) {
 
