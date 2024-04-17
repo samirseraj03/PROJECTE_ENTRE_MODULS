@@ -1,0 +1,9 @@
+# Nombre del archivo: Dockerfile.postgres
+
+
+# Utilizamos la imagen oficial de PostgreSQL como base
+FROM postgres
+
+
+# Copiamos el script SQL de inicialización a la carpeta de inicio del contenedor
+COPY database/init.sql /docker-entrypoint-initdb.d/init.sql
