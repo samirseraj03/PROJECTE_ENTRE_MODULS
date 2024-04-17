@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container ">
-    <div class="row justify-content-center ">
+<div class="container">
+    <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card linear-gradient_css">
+            <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 @if(session('error'))
@@ -13,8 +13,7 @@
                 </script>
                 @endif
 
-
-                <div class="card-body ">
+                <div class="card-body">
                     <form method="POST" id="cocacolaEspuma" action="{{ route('register') }}">
                         @csrf
 

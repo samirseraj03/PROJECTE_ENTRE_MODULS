@@ -39,8 +39,6 @@ class HomeController extends Controller
         }
     }
 
-
-
     public function getEncuestasPorEmpresa(Request $request , $id)
     {
         try {
