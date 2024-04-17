@@ -38,75 +38,69 @@
 
 <body>
 
-    <div id="app  ">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm ">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <div class="row">
-
-                        <div class="col mt-1 ">
-                            <span class="material-symbols-outlined">
-                                grid_view
-                            </span>
-                        </div>
-                        <div class="col">
-                            <span>{{ config('app.name', 'Inici') }}</span>
-
-                        </div>
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <div class="row">
+                    <div class="col mt-1">
+                        <span class="material-symbols-outlined">grid_view</span>
                     </div>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if(Auth::check() && !is_null(session('id_enquestadores')))
-                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('new_company') }}">Donar d'alta la localització</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('new_survey') }}">Donar d'alta les enquestes</a>
-                        </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="enquestesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Més
-                            </a>
-                            <div class="dropdown-menu  " aria-labelledby="enquestesDropdown">
-                                <a class="dropdown-item" href="{{ route('new_ask') }}">Donar d'alta noves preguntes enquestes</a>
-                                <a class="dropdown-item" href="{{ route('show_option_form') }}">Donar d'alta opcions</a>
-                                <a class="dropdown-item" href="{{ route('informes') }}">Informes</a>
-                            </div>
-                        </li>
-                    </ul>
-                    @endif
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                        @endguest
-                    </ul>
-
+                    <div class="col">
+                        <span>{{ config('app.name', 'Inici') }}</span>
+                    </div>
                 </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    @if(Auth::check() && !is_null(session('id_enquestadores')))
+                    <!-- Mostrar estos elementos solo si el usuario es enquestador -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('new_company') }}">Donar d'alta la localització</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('new_survey') }}">Donar d'alta les enquestes</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="enquestesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Més</a>
+                        <div class="dropdown-menu" aria-labelledby="enquestesDropdown">
+                            <a class="dropdown-item" href="{{ route('new_ask') }}">Donar d'alta noves preguntes enquestes</a>
+                            <a class="dropdown-item" href="{{ route('show_option_form') }}">Donar d'alta opcions</a>
+                            <a class="dropdown-item" href="{{ route('informes') }}">Informes</a>
+                        </div>
+                    </li>
+                    @endif
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                    @endguest
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
 </body>
 
 </html>
