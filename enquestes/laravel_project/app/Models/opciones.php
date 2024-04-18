@@ -21,8 +21,8 @@ class opciones extends Model
 
 
     // Relación con el modelo Encuesta
-    public function preguntas()
-    {
-        return $this->belongsTo(Preguntas::class, 'id_pregunta');
-    }
+    // public function preguntas()
+    // {
+    //     return $this->belongsTo(Preguntas::class, 'id_pregunta');
+    // }
 }

@@ -13,7 +13,7 @@ class informes extends Model
 
 
     protected $fillable = [
-        'usuari', // Descripción de la opcion
+        'usuario', // Descripción de la opcion
         'enquesta', // Id pregunta relacionada
         'company',
         'n_preguntas',
