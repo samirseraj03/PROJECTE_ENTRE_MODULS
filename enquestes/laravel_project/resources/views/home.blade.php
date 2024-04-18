@@ -37,7 +37,7 @@
                 <select id="selectEnquesta" name="selectEnquesta" class="form-select form-select-lg mb-3" aria-label="Large select example">
                     <option value="" selected>Seleccionar enquesta</option>
                 </select>
-                <button id="getSurvey" disabled type="submit" class="btn btn-primary">Respondre la pregunta</button>
+                <button id="getSurvey" type="submit" class="btn btn-primary">Respondre l'enquesta</button>
             </div>
         </div>
     </form>
