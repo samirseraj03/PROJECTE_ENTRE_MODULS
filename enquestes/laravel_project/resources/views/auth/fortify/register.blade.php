@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+
+@section('content')
+
 @if(session('error'))
     <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
@@ -14,7 +18,7 @@
 @endif
 
 
-@section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

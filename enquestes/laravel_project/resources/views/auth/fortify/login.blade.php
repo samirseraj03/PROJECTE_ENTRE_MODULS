@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+
+
+
+
+@section('content')
+
+
 @if(session('error'))
     <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
@@ -12,10 +19,6 @@
         }, 5000);
     </script>
 @endif
-
-
-
-@section('content')
 
 <div class="container">
         <div class="row justify-content-center">
