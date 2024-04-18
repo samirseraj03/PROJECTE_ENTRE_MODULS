@@ -88,7 +88,7 @@ class RegisterController extends Controller
                 return redirect('/register')->with('error', '¡Cuenta utilizada!');
             }
         } catch (\Exception $e) {
-            return redirect('/register')->with('error', 'ha pasado algo inesperado' . $e);
+            return redirect('/home')->with('error', 'ha pasado algo inesperado' . $e);
         }
     }
 }

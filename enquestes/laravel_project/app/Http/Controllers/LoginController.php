@@ -70,15 +70,12 @@ class LoginController extends Controller
               
             } else {
                 // Autenticación fallida 
-                return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);
+                return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);               
             }
 
         } catch(\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Credenciales inválidas'
-            ], 500);
+            return redirect('/login')->with('error', 'ha pasado algo inesperado');
         }
     }
 

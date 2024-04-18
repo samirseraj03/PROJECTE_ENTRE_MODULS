@@ -1,5 +1,20 @@
 @extends('layouts.app')
 
+@if(session('error'))
+    <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+    </div>
+    <script>
+        // Cerrar automáticamente el mensaje después de 5 segundos
+        setTimeout(function() {
+            document.getElementById('errorAlert').style.display = 'none';
+        }, 5000);
+    </script>
+@endif
+
+
+
 @section('content')
 
 <div class="container">

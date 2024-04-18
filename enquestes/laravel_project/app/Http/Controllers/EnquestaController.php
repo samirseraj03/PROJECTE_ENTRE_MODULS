@@ -192,7 +192,7 @@ class EnquestaController extends Controller
                 }
                 catch (\Exception $e) 
                 {
-                    $id_usuario = 0;
+                    $id_usuario = null;
                 }
 
                 $id_empresa = $request->input('id_empresa');
