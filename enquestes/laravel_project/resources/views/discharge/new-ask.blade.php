@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="container mt-2">
     <form action="{{ route('new_ask') }}" method="POST">
         @csrf

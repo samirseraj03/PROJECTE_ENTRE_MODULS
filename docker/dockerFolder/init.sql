@@ -139,7 +139,7 @@ id_tipus int REFERENCES tipus_pregunta(id_tipus) ON DELETE CASCADE not null
 CREATE TABLE opciones(
 id_opcion serial PRIMARY key,
 descripcion text,
-id_pregunta INT REFERENCES preguntas(id_pregunta) not null
+id_pregunta INT REFERENCES preguntas(id_pregunta)
 );
 
 

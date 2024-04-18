@@ -55,6 +55,24 @@ class InformesController extends Controller
     }
 
 
+    public function countPreguntasPerEmpresa(Request $request)
+    {
+
+        $id_company = $request->input('idEmpresa');
+
+        $UserSurveyPreguntas = informes::where('company', $id_company)->pluck('n_preguntas');
+
+        $count = 0;
+        foreach ($UserSurveyPreguntas as $pregutnas) {
+
+            $count += intval($pregutnas);
+        }
+
+        return $count;
+
+    }
+
+
 
     function obtenerInformacionUsuarios()
     {

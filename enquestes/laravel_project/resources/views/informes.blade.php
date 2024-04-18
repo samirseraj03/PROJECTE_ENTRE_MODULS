@@ -7,7 +7,7 @@
 
 <div class="container  mt-5  w-100">
     <form class="mx-5 px-5 d-flex"   role="search" >
-        <div class="card  w-100">
+        <div class="card  w-100 linear-gradient_css">
             <h1 class="mb-3 mt-3 text-center" style="font-size: 24px;">Consulta Estats dels Usuaris: </h1>
             <div class="container mb-2">
             <input class="form-control" id="search" type="search" placeholder="Search" aria-label="Search">

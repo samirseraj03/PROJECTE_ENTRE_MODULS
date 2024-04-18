@@ -22,25 +22,24 @@ class DishchargeController extends Controller
     public function DischargeCompany(Request $request): RedirectResponse
     {
         try {
-            // Retrieve parameters from the request
-            $param1 = $request->input('nombreEmpresa');
-
-            // Your logic based on parameters
-            $Company = new Empresa();
-            $Company->nombre = $param1;
-            $Company->save();
-
+            // Obtener parámetros de la solicitud
+            $nombreEmpresa = $request->input('nombreEmpresa');
+    
+            // Lógica basada en los parámetros
+            $empresa = new Empresa();
+            $empresa->nombre = $nombreEmpresa;
+            $empresa->save();
+    
+            // Redirigir a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'Empresa creada correctamente');
-
+    
         } catch(\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al crear la Empresa'
-            ], 500);
+            // Manejar cualquier excepción y devolver un mensaje de error
+            return redirect()->route('home')->with('error', 'Error al crear la Empresa: ' . $e->getMessage());
         }
-
     }
+    
 
     public function LoadDischargeSurvey(Request $request): View
     {
@@ -84,7 +83,7 @@ class DishchargeController extends Controller
             $fechaFinalizacion = new DateTime($request->input('fechaFinalizacion'));
             $fechaCreacion = new DateTime();
     
-            // Your logic based on parameters
+            // Tu lógica basada en los parámetros
             $Encuesta = new Encuesta();
             $Encuesta->descripcion = $NombreEncuesta;
             $Encuesta->data_creacion = $fechaCreacion;
@@ -93,16 +92,16 @@ class DishchargeController extends Controller
     
             $Encuesta->save();
     
+            // Redirigimos a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'encuesta creada correctamente');
-
+    
         } catch(\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al crear la enquesta'
-            ], 500);
+            // Manejamos cualquier excepción y devolvemos un mensaje de error
+            return redirect()->route('home')->with('error', 'Error al crear la encuesta: ' . $e->getMessage());
         }
     }
+    
 
 
     // obtner todas las opciones disponibles
@@ -122,65 +121,69 @@ class DishchargeController extends Controller
 
     public function InsertOption(Request $request) : RedirectResponse{
 
-        $opciones = new opciones();
-        $opciones->descripcion =  $request->input('opcio'); ;
-
-        return redirect()->route('new-new_option')->with('success', 'pregunta creada correctamente');
+        try {
+            $opciones = new opciones();
+            $opciones->descripcion =  $request->input('opcio');
+            $opciones->save();
+    
+            return redirect()->route('show_option_form')->with('success', 'pregunta creada correctamente');
+        }
+        catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Error al crear la opcio: ' . $e->getMessage());
+        };
+      
     }
     
 
 
-    public function insert_new_ask(Request $request) :  RedirectResponse {
+    public function insert_new_ask(Request $request) : RedirectResponse {
         try {
-            // RECOGER LOS DATOS DEL FORMAULARIO DE LAS ALTAS 
+            // RECOGER LOS DATOS DEL FORMULARIO DE LAS ALTAS 
             $id_encuesta = $request->input('selectEncuesta');
             $nombre_pregunta = $request->input('nombrePregunta');
             $Tipus_pregunta = $request->input('selectTipusPregunta');
-
+    
             // hacemos el insert para la tabla de pregunta
             $Pregunta = new preguntas();
             $Pregunta->id_encuesta = $id_encuesta;
             $Pregunta->enunciado = $nombre_pregunta;
             $Pregunta->id_tipus = $Tipus_pregunta;
             $Pregunta->save();
-
+    
+            // Obtenemos el ID de la pregunta recién creada
             $id_pregunta_nueva = $Pregunta->id_pregunta;
- 
+    
             if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5" ){
                 // recogemos los datos para tipus de preguntas 
                 $opciones_selecciondas = $request->input('opcionsSeleccionades');
                 $arrayTmp =  explode(',', $opciones_selecciondas);
                 $arrayTmp = array_map('intval', $arrayTmp);
-
+    
                 $opciones = opciones::all();
-
-                for ( $i = 0 ; $i < count($opciones) - 1 ; $i++){
-                
-                    $id_opcion_buscar = $opciones[$i]->id_opcion;
-
-                    if (in_array($id_opcion_buscar, $arrayTmp , true) == true) {
-
-                        // insertamos la informacion que falta para las opciones y assiganrlas a la pregunta
+    
+                foreach ($opciones as $opcion) {
+                    if (in_array($opcion->id_opcion, $arrayTmp, true)) {
+                        // Insertamos la información que falta para las opciones y asignarlas a la pregunta
                         $opciones_insert = new opciones();
-                        $pregunta = $opciones->where('id_opcion', $id_opcion_buscar)->pluck('descripcion');
-                        $opciones_insert->id_pregunta = $id_pregunta_nueva ;
-                        $opciones_insert->descripcion = $pregunta->first() ;
+                        $opciones_insert->id_pregunta = $id_pregunta_nueva;
+                        $opciones_insert->descripcion = $opcion->descripcion;
                         $opciones_insert->save();
                     }
-                };
+                }
             }
             
+            // Redirigimos a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'pregunta creada correctamente');
-
-        } catch(\Exception $e)
-        {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al crear la pregunta'
-            ], 500);
+    
+        } catch(\Exception $e) {
+            // Manejamos cualquier excepción y devolvemos un mensaje de error
+            return redirect()->route('home')->with('error', 'Error al crear la pregunta: ' . $e->getMessage());
+            
         }
-   
     }
+    
+   
+    
 
 
 

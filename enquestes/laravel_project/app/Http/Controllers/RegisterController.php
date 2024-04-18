@@ -10,6 +10,7 @@ use App\Mail\MyEmail;
 use App\Http\Controllers\HomeController;
 use App\Models\enquestadores;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\InformesController;
 
 class RegisterController extends Controller
 {
@@ -33,6 +34,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        $InformesControlller =  new InformesController();
         try {
             $request->validate([
                 'nombre' => 'required|string|max:255',
@@ -54,20 +56,29 @@ class RegisterController extends Controller
                     $nueva_id = $enquestador->id_enquestadores;
 
 
-                    User::create([
+                    $nuevoUsuario = User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
                         'contrasenya' => $request->contrasenya,
                         'id_enquestadores' => $nueva_id,
-
                     ]);
+                    
+                    $idDelNuevoUsuario = $nuevoUsuario->id;
+                    $InformesControlller->insertarInforme($idDelNuevoUsuario , null , $request->idEmpresa , 0 );
+
+                    
 
                 } else {
-                    User::create([
+                    $nuevoUsuario = User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
                         'contrasenya' => $request->contrasenya,
+                       
                     ]);
+                    
+                    $idDelNuevoUsuario = $nuevoUsuario->id;
+                    $InformesControlller->insertarInforme($idDelNuevoUsuario , null , null , 0 );
+
                 }                    
                 //Enviar correu validació
                 Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));
@@ -77,10 +88,7 @@ class RegisterController extends Controller
                 return redirect('/register')->with('error', '¡Cuenta utilizada!');
             }
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e
-            ], 500);
+            return redirect('/register')->with('error', 'ha pasado algo inesperado' . $e);
         }
     }
 }
