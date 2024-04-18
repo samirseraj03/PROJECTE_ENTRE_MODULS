@@ -70,7 +70,8 @@ class LoginController extends Controller
               
             } else {
                 // Autenticación fallida 
-                return back()->withErrors(['correo' => 'Las credenciales proporcionadas son incorrectas']);               
+                return redirect('/login')->with('error', 'Las credenciales proporcionadas son incorrectas');
+          
             }
 
         } catch(\Exception $e)
