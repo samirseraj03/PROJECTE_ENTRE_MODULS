@@ -86,7 +86,7 @@ class RegisterController extends Controller
                 Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));
                 } catch (\Exception $mailException) {
                 // Si el envío falla, maneja el error y registra el fallo
-                return redirect('/logib')->with('error', '¡Registro exitoso, pero no se pudo enviar el correo! Error: ');
+                return redirect('/login')->with('error', '¡Registro exitoso, pero no se pudo enviar el correo! Error: ');
                 }
                 
                 return redirect('/login')->with('success', '¡Registro exitoso!');

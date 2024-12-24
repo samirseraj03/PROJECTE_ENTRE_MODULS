@@ -120,7 +120,7 @@ $(document).ready(function()
         var passError = $("#passwordError");
 
         // Regular expression for basic email validation
-        var passRegex = /^.{8,}$/;
+        var passRegex = /^.{2,}$/;
 
         if (passRegex.test(passInput)) 
         {
