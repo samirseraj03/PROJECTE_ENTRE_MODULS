@@ -62,7 +62,7 @@ EXPOSE 80
 # Start Apache
 CMD ["apache2-foreground"]
 
+
 CMD php artisan serve --host=0.0.0.0 --port=8000
 # Migrate Laravel Postgres
-#RUN php artisan migrate --force
 

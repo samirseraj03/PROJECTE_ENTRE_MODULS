@@ -11,5 +11,22 @@
             "username": "postgres",
             "password": "aref1310"
         }
-    ]
+    ],
+    "intelephense.environment.phpExecutablePath": "C:/xampp/php/php.exe",
+      
+    "intelephense.environment.includePaths": [
+    "vendor/laravel/framework/src",
+    "app/**/*",
+    "database/**/*"
+
+
+],
+"intelephense.files.maxSize": 5000000,
+"intelephense.environment.phpVersion": "8.2",  // o la versión de PHP que estés usando
+"intelephense.files.exclude": [
+    "**/vendor/**"  // Puedes excluir "vendor" si ya has configurado el includePaths
+],
+"intelephense.diagnostics.enable": true,
+
+
 }

@@ -173,7 +173,7 @@ CREATE TABLE informe_encuestas (
 INSERT INTO empresa ( id_empresa  ,  nombre) VALUES ( 1 , 'empresa_de_ahmed');
 
 -- Insertar ejemplo de Usuario
-insert into usuarios ( id ,nombre , correo , contrasenya) values ( 1 , 'samir' , 'samirseraj03@gmail.com' , 'ahmed123');
+insert into usuarios ( id ,nombre , correo , contrasenya) values ( 1 , 'samir' , 'test@test.com' , 'test123');
 
 -- Insertar ejemplo de Enquestador asociado a un Usuario y una Empresa
 INSERT INTO enquestadores (id_enquestadores, localizacion, id_empresa) VALUES (1, 'girona', 1);
