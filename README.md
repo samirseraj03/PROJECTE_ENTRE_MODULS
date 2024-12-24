@@ -37,7 +37,7 @@ Si ya tienes estas herramientas instaladas, puedes continuar con los siguientes 
 ### Explicación de los cambios:
 
 - He agregado los pasos para copiar el archivo `.env` desde `.env.example` y configurarlo con las credenciales de la base de datos PostgreSQL.
-- El comando `docker-compose -f docker/dockerFolder/docker-compose.yml up --build` ahora está claramente explicado, indicando cómo levantar los contenedores para Laravel y PostgreSQL.
+- El comando `docker-compose -f docker/dockerFolder/docker-compose.yml up --build`  indicando cómo levantar los contenedores para Laravel y PostgreSQL.
 
 Este `README.md` proporciona una guía completa y clara para ejecutar la aplicación, desde la configuración de las variables de entorno hasta el inicio de los contenedores Docker y la migración de la base de datos.
 
