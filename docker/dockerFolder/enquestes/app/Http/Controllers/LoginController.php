@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    
+
     /**
      * Show the login form.
      *
@@ -22,7 +22,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         try {
-             
+
             return view('auth.fortify.login'); // Asegúrate de tener una vista llamada 'auth.login'
 
         } catch(\Exception $e)
@@ -33,7 +33,7 @@ class LoginController extends Controller
             ], 500);
         }
     }
-    
+
      /**
      * Handle an incoming authentication request.
      *
@@ -49,9 +49,9 @@ class LoginController extends Controller
                 'correo' => 'required|email',
                 'contrasenya' => 'required',
             ]);
-        
+
             // Busca el usuario por correo
-            $user = user::where('correo', $credentials['correo'])->first();
+            $user = User::where('correo', $credentials['correo'])->first();
 
 
             // comprobar el password si esta ben posat o no
@@ -67,11 +67,11 @@ class LoginController extends Controller
                     return redirect('/home')->with('success', '¡Registro exitoso!');
                 }
 
-              
+
             } else {
-                // Autenticación fallida 
+                // Autenticación fallida
                 return redirect('/login')->with('error', 'Las credenciales proporcionadas son incorrectas');
-          
+
             }
 
         } catch(\Exception $e)
@@ -92,11 +92,11 @@ class LoginController extends Controller
      {
         try {
             Auth::logout();
- 
+
             $request->session()->invalidate();
-    
+
             $request->session()->regenerateToken();
-    
+
             return redirect('/');
 
         } catch(\Exception $e)

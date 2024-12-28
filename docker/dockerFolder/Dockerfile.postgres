@@ -1,0 +1,13 @@
+# Usar la imagen base de PostgreSQL
+FROM postgres:14.15-alpine
+
+# Establecer variables de entorno predeterminadas
+ENV POSTGRES_DB=enquestas
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+
+# Copiar el script init.sql a la ruta que PostgreSQL usa para inicializar la base de datos
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Exponer el puerto de PostgreSQL
+EXPOSE 5432

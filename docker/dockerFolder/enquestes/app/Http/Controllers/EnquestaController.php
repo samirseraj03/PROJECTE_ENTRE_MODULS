@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use App\Models\Encuesta;
-use App\Models\opciones;
-use App\Models\preguntas;
+use App\Models\Opciones;
+use App\Models\Preguntas;
 use App\Models\TipusPregunta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -58,7 +58,7 @@ class EnquestaController extends Controller
 
             $idEncuesta = $param1; //$itemsFormatats[0]['id_encuesta'];
 
-            $preguntes = preguntas::where('id_encuesta', $idEncuesta)->get();
+            $preguntes = Preguntas::where('id_encuesta', $idEncuesta)->get();
             $preguntesFormatades = $preguntes->toArray();
 
             foreach ($preguntesFormatades as &$pregunta) {
@@ -77,7 +77,7 @@ class EnquestaController extends Controller
                 // Get Question options
                 $formatedOpcions = [];
 
-                $opcions = opciones::where('id_pregunta', $id_pregunta)->get();
+                $opcions = Opciones::where('id_pregunta', $id_pregunta)->get();
                 $opcionsFormatades = $opcions->toArray();
 
                 foreach ($opcionsFormatades as &$opcio) {
@@ -131,7 +131,7 @@ class EnquestaController extends Controller
             // Saved Json
             $idEncuesta = $param1; //$itemsFormatats[0]['id_encuesta'];
 
-            $encuesta = encuesta::where('id_encuesta', $idEncuesta)->get();
+            $encuesta = Encuesta::where('id_encuesta', $idEncuesta)->get();
             $id_empresa = $encuesta[0]['id_empresa'];
 
             // Return a sample result for demonstration
@@ -171,13 +171,13 @@ class EnquestaController extends Controller
         //'Credenciales inválidas'
     }
 
-    
+
     public function insertResposta(Request $request)
     {
-        try 
+        try
         {
             $data = $request->all();
-            
+
             // Check if id_empresa exists and is not empty
             if (!empty($data)) {
                 // Use the id_empresa value in your logic
@@ -186,11 +186,11 @@ class EnquestaController extends Controller
 
                 $informController = new InformesController();
 
-                try 
-                {   
+                try
+                {
                     $id_usuario = auth()->user()->id;
                 }
-                catch (\Exception $e) 
+                catch (\Exception $e)
                 {
                     $id_usuario = null;
                 }
@@ -209,7 +209,7 @@ class EnquestaController extends Controller
                 'data' => $id_usuario,
             ], 200);
             */
-            
+
             return redirect('/home')->with('success', '¡Encuesta enviada correctamente!');
             //Enviar correu validació
             //Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\MyEmail;
 
 use App\Http\Controllers\HomeController;
-use App\Models\enquestadores;
+use App\Models\Enquestadores;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\InformesController;
 
@@ -49,7 +49,7 @@ class RegisterController extends Controller
             if ($usuarios->isEmpty()) {
                 if ($request->enquestador == 'si') {
 
-                    $enquestador = new enquestadores();
+                    $enquestador = new Enquestadores();
                     $enquestador->id_empresa = $request->idEmpresa;
                     $enquestador->localizacion = $request->idEmpresa;
                     $enquestador->save();
@@ -62,25 +62,25 @@ class RegisterController extends Controller
                         'contrasenya' => $request->contrasenya,
                         'id_enquestadores' => $nueva_id,
                     ]);
-                    
+
                     $idDelNuevoUsuario = $nuevoUsuario->id;
                     $InformesControlller->insertarInforme($idDelNuevoUsuario , null , $request->idEmpresa , 0 );
 
-                    
+
 
                 } else {
                     $nuevoUsuario = User::create([
                         'nombre' => $request->nombre,
                         'correo' => $request->correo,
                         'contrasenya' => $request->contrasenya,
-                       
+
                     ]);
-                    
+
                     $idDelNuevoUsuario = $nuevoUsuario->id;
                     $InformesControlller->insertarInforme($idDelNuevoUsuario , null , null , 0 );
 
-                }       
-                
+                }
+
                 // Intentar enviar el correo de validación
                 try {
                 Mail::to($request->correo)->send(new MyEmail($request->nombre, "s'ha creat un nou compte d'usuari."));
@@ -88,7 +88,7 @@ class RegisterController extends Controller
                 // Si el envío falla, maneja el error y registra el fallo
                 return redirect('/login')->with('error', '¡Registro exitoso, pero no se pudo enviar el correo! Error: ');
                 }
-                
+
                 return redirect('/login')->with('success', '¡Registro exitoso!');
 
             } else {

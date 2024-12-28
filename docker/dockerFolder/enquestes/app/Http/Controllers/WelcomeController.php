@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\empresa;
+use App\Models\Empresa;
 
 class WelcomeController extends Controller
 {
     public function mostrarEmpresa()
     {
         try {
-            $empresas = empresa::all();
+            $empresas = Empresa::all();
             return view('welcome', compact('empresas'));
 
         } catch(\Exception $e)

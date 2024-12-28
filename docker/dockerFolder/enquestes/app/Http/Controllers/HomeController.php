@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\empresa; // Asegúrate de importar el modelo correcto
-use App\Models\encuesta; // Asegúrate de importar el modelo correcto
+use App\Models\Empresa; // Asegúrate de importar el modelo correcto
+use App\Models\Encuesta; // Asegúrate de importar el modelo correcto
 
 
 class HomeController extends Controller
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function mostrarEmpresaSinRedirecion()
     {
         try {
-            $empresas = empresa::all();
+            $empresas = Empresa::all();
             return $empresas;
 
         } catch(\Exception $e)

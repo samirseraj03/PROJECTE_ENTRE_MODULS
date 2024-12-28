@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\informes;
+use App\Models\Informes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +16,7 @@ class InformesController extends Controller
     public function insertarInforme($id_usuario, $id_enquesta, $id_company, $N_preguntas)
     {
 
-        $informes = new informes();
+        $informes = new Informes();
         $informes->enquesta = $id_enquesta;
         $informes->usuario = $id_usuario;
         $informes->company = $id_company;
@@ -28,7 +28,7 @@ class InformesController extends Controller
     {
 
         $userId = auth()->user()->id; // Obtener el ID del usuario autenticado
-        $UserSurvey = informes::where('usuario', $userId)->get();
+        $UserSurvey = Informes::where('usuario', $userId)->get();
         return count($UserSurvey);
     }
 
@@ -36,7 +36,7 @@ class InformesController extends Controller
     {
 
         $id_company = $request->input('idEmpresa');
-        $companySurvey = informes::where('company', $id_company)->get();
+        $companySurvey = Informes::where('company', $id_company)->get();
         return count($companySurvey);
     }
 
@@ -45,7 +45,7 @@ class InformesController extends Controller
 
         $id_company = $request->input('idEmpresa');
 
-        $UserSurveyPreguntas = informes::where('usuario', $id_company)->pluck('n_preguntas');
+        $UserSurveyPreguntas = Informes::where('usuario', $id_company)->pluck('n_preguntas');
         $count = 0;
         foreach ($UserSurveyPreguntas as $pregutnas) {
 
@@ -60,7 +60,7 @@ class InformesController extends Controller
 
         $id_company = $request->input('idEmpresa');
 
-        $UserSurveyPreguntas = informes::where('company', $id_company)->pluck('n_preguntas');
+        $UserSurveyPreguntas = Informes::where('company', $id_company)->pluck('n_preguntas');
 
         $count = 0;
         foreach ($UserSurveyPreguntas as $pregutnas) {
@@ -82,7 +82,7 @@ class InformesController extends Controller
             ->join('informes as i', 'i.usuario', '=', 'u.id')
             ->groupBy('u.id', 'u.nombre')
             ->get();
-    
+
         // Convertir los resultados a un array
         $arrayResultados = [];
         foreach ($resultados as $resultado) {
@@ -92,7 +92,7 @@ class InformesController extends Controller
             } elseif ($resultado->n_preguntas > 10) {
                 $estado = 'Activo';
             }
-    
+
             $arrayResultados[] = [
                 'id' => $resultado->id,
                 'nombre' => $resultado->nombre,
@@ -101,7 +101,7 @@ class InformesController extends Controller
             ];
         }
             return view('informes', compact('arrayResultados'));
-    
+
         } catch(\Exception $e)
         {
             return response()->json([
@@ -113,5 +113,5 @@ class InformesController extends Controller
     }
 
 
-   
+
 }
