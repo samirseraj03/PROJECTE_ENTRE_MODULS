@@ -43,6 +43,38 @@ Este `README.md` proporciona una guía completa y clara para ejecutar la aplicac
 
 
 
+# OTRA ALTERNATIVA PARA PONER EN MARCHA LAS IMAGENES 
+
+    - Desgarga docker y docker compose y crea este archivo y poniendo lo siguente:
+
+    ```bash    
+        services:
+          laravel:
+            image: mserajdam/laravel-app:latest
+            ports:
+              - "80:8000"
+            networks:
+              - db-network  # Add the network here
+        
+          postgres:
+            image: mserajdam/postgres-db:latest
+            container_name: postgres_container
+            ports:
+              - "5432:5432"
+            networks:
+              - db-network  # Add the network here
+        
+        networks:
+          db-network:
+            driver: bridge  # Define the network
+
+    - finalmente docker-compose up -d
+
+
+
+
+
+
 ### Notas importantes
     Reiniciar el proceso de registro: simplemente repite el proceso de registro hasta que se complete correctamente. En algunos casos, un segundo o tercer intento será exitoso.
 
