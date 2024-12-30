@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class InformesController extends Controller
 {
-    public function getInformes()
-    {
-    }
+    public function getInformes() {}
 
     public function insertarInforme($id_usuario, $id_enquesta, $id_company, $N_preguntas)
     {
@@ -69,7 +67,6 @@ class InformesController extends Controller
         }
 
         return $count;
-
     }
 
 
@@ -78,40 +75,34 @@ class InformesController extends Controller
     {
         try {
             $resultados = DB::table('usuarios as u')
-            ->select('u.id', 'u.nombre', DB::raw('SUM(n_preguntas) as n_preguntas'))
-            ->join('informes as i', 'i.usuario', '=', 'u.id')
-            ->groupBy('u.id', 'u.nombre')
-            ->get();
+                ->select('u.id', 'u.nombre', DB::raw('SUM(n_preguntas) as n_preguntas'))
+                ->join('informes as i', 'i.usuario', '=', 'u.id')
+                ->groupBy('u.id', 'u.nombre')
+                ->get();
 
-        // Convertir los resultados a un array
-        $arrayResultados = [];
-        foreach ($resultados as $resultado) {
-            $estado = 'No está activo';
-            if ($resultado->n_preguntas >= 5 && $resultado->n_preguntas <= 10) {
-                $estado = 'Puede ser activo';
-            } elseif ($resultado->n_preguntas > 10) {
-                $estado = 'Activo';
+            // Convertir los resultados a un array
+            $arrayResultados = [];
+            foreach ($resultados as $resultado) {
+                $estado = 'No está activo';
+                if ($resultado->n_preguntas >= 5 && $resultado->n_preguntas <= 10) {
+                    $estado = 'Puede ser activo';
+                } elseif ($resultado->n_preguntas > 10) {
+                    $estado = 'Activo';
+                }
+
+                $arrayResultados[] = [
+                    'id' => $resultado->id,
+                    'nombre' => $resultado->nombre,
+                    'n_preguntas' => $resultado->n_preguntas,
+                    'estado' => $estado
+                ];
             }
-
-            $arrayResultados[] = [
-                'id' => $resultado->id,
-                'nombre' => $resultado->nombre,
-                'n_preguntas' => $resultado->n_preguntas,
-                'estado' => $estado
-            ];
-        }
             return view('informes', compact('arrayResultados'));
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e
             ], 500);
         }
-
     }
-
-
-
 }

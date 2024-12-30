@@ -12,11 +12,9 @@ class HomeController extends Controller
     public function mostrarEmpresa()
     {
         try {
-            $empresas = empresa::all();
+            $empresas = Empresa::all();
             return view('home', compact('empresas'));
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error en mostrar la Empresa'
@@ -29,9 +27,7 @@ class HomeController extends Controller
         try {
             $empresas = Empresa::all();
             return $empresas;
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error en mostrar la Empresa'
@@ -39,7 +35,7 @@ class HomeController extends Controller
         }
     }
 
-    public function getEncuestasPorEmpresa(Request $request , $id)
+    public function getEncuestasPorEmpresa(Request $request, $id)
     {
         try {
             // Obtén el ID de la empresa seleccionada desde la solicitud
@@ -50,8 +46,7 @@ class HomeController extends Controller
             $encuestas = $encuestas->toArray();
 
             return response()->json($encuestas);
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error en obtener enquestas'
@@ -59,7 +54,7 @@ class HomeController extends Controller
         }
     }
 
-    public function getEncuestasPorEmpresaWithid(Request $request , $id)
+    public function getEncuestasPorEmpresaWithid(Request $request, $id)
     {
         try {
             // Obtén el ID de la empresa seleccionada desde la solicitud
@@ -70,8 +65,7 @@ class HomeController extends Controller
             $encuestas = $encuestas->toArray();
 
             return response()->json($encuestas);
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error en obtener enquestas'

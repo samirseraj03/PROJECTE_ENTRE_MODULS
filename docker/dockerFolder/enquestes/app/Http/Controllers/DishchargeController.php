@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Http\RedirectResponse;
 
-use App\Models\empresa;
+use App\Models\Empresa;
 use App\Models\Encuesta;
 use App\Models\TipusPregunta;
 use DateTime;
@@ -32,9 +32,7 @@ class DishchargeController extends Controller
 
             // Redirigir a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'Empresa creada correctamente');
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Manejar cualquier excepción y devolver un mensaje de error
             return redirect()->route('home')->with('error', 'Error al crear la Empresa: ' . $e->getMessage());
         }
@@ -44,11 +42,9 @@ class DishchargeController extends Controller
     public function LoadDischargeSurvey(Request $request): View
     {
         try {
-            $empresas = empresa::all();
+            $empresas = Empresa::all();
             return view('discharge.new-survey', compact('empresas'));
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -60,13 +56,11 @@ class DishchargeController extends Controller
     public function LoadDischargeAsk(Request $request): View
     {
         try {
-            $empresas = empresa::all();
+            $empresas = Empresa::all();
             $tipus = TipusPregunta::all();
 
-            return view('discharge.new-ask', compact('empresas' ,'tipus'));
-
-        } catch(\Exception $e)
-        {
+            return view('discharge.new-ask', compact('empresas', 'tipus'));
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -94,9 +88,7 @@ class DishchargeController extends Controller
 
             // Redirigimos a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'encuesta creada correctamente');
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Manejamos cualquier excepción y devolvemos un mensaje de error
             return redirect()->route('home')->with('error', 'Error al crear la encuesta: ' . $e->getMessage());
         }
@@ -105,13 +97,12 @@ class DishchargeController extends Controller
 
 
     // obtner todas las opciones disponibles
-    public function getopciones()  {
+    public function getopciones()
+    {
         try {
             $opciones = Opciones::all();
             return response()->json($opciones);
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Credenciales inválidas'
@@ -119,7 +110,8 @@ class DishchargeController extends Controller
         }
     }
 
-    public function InsertOption(Request $request) : RedirectResponse{
+    public function InsertOption(Request $request): RedirectResponse
+    {
 
         try {
             $opciones = new Opciones();
@@ -127,16 +119,15 @@ class DishchargeController extends Controller
             $opciones->save();
 
             return redirect()->route('show_option_form')->with('success', 'pregunta creada correctamente');
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->route('home')->with('error', 'Error al crear la opcio: ' . $e->getMessage());
         };
-
     }
 
 
 
-    public function insert_new_ask(Request $request) : RedirectResponse {
+    public function insert_new_ask(Request $request): RedirectResponse
+    {
         try {
             // RECOGER LOS DATOS DEL FORMULARIO DE LAS ALTAS
             $id_encuesta = $request->input('selectEncuesta');
@@ -153,7 +144,7 @@ class DishchargeController extends Controller
             // Obtenemos el ID de la pregunta recién creada
             $id_pregunta_nueva = $Pregunta->id_pregunta;
 
-            if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5" ){
+            if ($Tipus_pregunta == "4" || $Tipus_pregunta == "5") {
                 // recogemos los datos para tipus de preguntas
                 $opciones_selecciondas = $request->input('opcionsSeleccionades');
                 $arrayTmp =  explode(',', $opciones_selecciondas);
@@ -174,20 +165,9 @@ class DishchargeController extends Controller
 
             // Redirigimos a la página de inicio con un mensaje de éxito
             return redirect()->route('home')->with('success', 'pregunta creada correctamente');
-
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             // Manejamos cualquier excepción y devolvemos un mensaje de error
             return redirect()->route('home')->with('error', 'Error al crear la pregunta: ' . $e->getMessage());
-
         }
     }
-
-
-
-
-
-
-
-
-
 }

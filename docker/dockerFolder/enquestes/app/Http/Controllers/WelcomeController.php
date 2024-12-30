@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 
+
 class WelcomeController extends Controller
 {
     public function mostrarEmpresa()
@@ -11,15 +12,11 @@ class WelcomeController extends Controller
         try {
             $empresas = Empresa::all();
             return view('welcome', compact('empresas'));
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error en mostrar la Empresa'
             ], 500);
         }
     }
-
-   
 }
